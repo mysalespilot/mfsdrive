@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <style>
+    /* Additional CSS to set font color to black */
+    body,
+    input,
+    select,
+    option,
+    label,
+    button {
+      color: black !important;
+    }
+
+    .container {
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 15px;
+      max-width: 100%; /* Adjusted max-width for better responsiveness */
+      margin: 0 auto;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .field {
+      margin-bottom: 20px; /* Add some space between fields */
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 100%; /* Full width input fields */
+      padding: 10px; /* Increased padding for better touch interaction */
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%; /* Full width button */
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ::-webkit-input-placeholder {
+      font-size: 14px;
+      /* Specify your desired font size */
+    }
+
+    :-moz-placeholder {
+      font-size: 14px;
+      /* Specify your desired font size */
+    }
+
+    ::-moz-placeholder {
+      font-size: 14px;
+      /* Specify your desired font size */
+    }
+
+    :-ms-input-placeholder {
+      font-size: 14px;
+      /* Specify your desired font size */
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <h1 class="title has-text-centered">Booking Form</h1>
+    </div>
+  </section>
+  <div class="container">
+    <form id="form" class="m-4 pl-4" method="POST">
+      <div class="field">
+        <label for="numberInput">Enter SAP Code:</label>
+        <input type="number" id="numberInput" name="SAP" onchange="updateName()" style="width: 45%;" />
+      </div>
+      <div class="field">
+        <label for="nameOutput">Customer Name:</label>
+        <input type="text" id="nameOutput" name="Customer Name" readonly style="width: 75%;">
+      </div>
+      <div class="field">
+        <label for="cityOutput">City:</label>
+        <input type="text" id="cityOutput" name="City" readonly style="width: 45%;">
+      </div>
+      <div class="field">
+        <label for="poNumberInput">PO Number:</label>
+        <input type="text" id="poNumberInput" name="PO Number" style="width: 45%;">
+      </div>
+      <div class="field">
+        <label class="label">Plant</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Plant" name="Plant" style="width: 30%;" />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Incoterms</label>
+        <div class="control">
+          <div class="select">
+            <select name="Incoterms">
+              <option disabled hidden selected>Select One</option>
+              <option>FOR</option>
+              <option>EX</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Payment Terms</label>
+        <div class="control">
+          <div class="select">
+            <select name="Payment Terms">
+              <option disabled hidden selected>Select One</option>
+              <option>Z000</option>
+              <option>ZAND</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Sku Wise Quantity</label>
+        <ul>
+          <li>
+            <label for="product1">180000005 (SF 15 KG Tin)</label>
+            <input type="number" id="product1" name="180000005" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+            <label for="product2">180000006 (SF 15 Ltr Tin)</label>
+            <input type="number" id="product2" name="180000006" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+            <label for="product3">180000008 (SF 1 x 16)</label>
+            <input type="number" id="product3" name="180000008" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <label for="product4">180000066 (SF 1/2 Ltr x 20)</label>
+            <input type="number" id="product4" name="180000066" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+            <label for="product5">180000076 (SF 1 Ltr x 12 Pet)</label>
+            <input type="number" id="product5" name="180000076" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+            <label for="product6">180000179 (SF 2 Ltr x 6 Pet)</label>
+            <input type="number" id="product6" name="180000179" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+            <label for="product7">180000203 (SF 1/2 Ltr x 24 Pet)</label>
+            <input type="number" id="product7" name="180000203" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000249 (SF 5 Ltr x 4 Jar)</label>
+            <input type="number" id="product7" name="180000249" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000371 (SF 10 Ltr Bucket)</label>
+            <input type="number" id="product7" name="180000371" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000163 (RB 1 x 10)</label>
+            <input type="number" id="product7" name="180000163" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">1180000377 (Sri Krupa 1 x 12 Pet)</label>
+            <input type="number" id="product7" name="1180000377" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000378 (Sri Krupa 1/2 Ltr x 24 Pet)</label>
+            <input type="number" id="product7" name="180000378" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000248 (GN 1 x 10)</label>
+            <input type="number" id="product7" name="180000248" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000126 (MSD 1 x 10)</label>
+            <input type="number" id="product7" name="180000126" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000127 (MSD 1/2 Ltr x 20)</label>
+            <input type="number" id="product7" name="180000127" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000151 (MSD OIL 5 Ltr x 4)</label>
+            <input type="number" id="product7" name="180000151" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000260 (MSD OIL 1 Pet x 12)</label>
+            <input type="number" id="product7" name="180000260" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000261 (MSD 1/2 Ltr x 24)</label>
+            <input type="number" id="product7" name="180000261" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000407 (MSD OIL 5LTR x 4 Bkt)</label>
+            <input type="number" id="product7" name="180000407" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000409 (Palm 850G x 10)</label>
+            <input type="number" id="product7" name="180000409" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000410 (Palm 850G x 15)</label>
+            <input type="number" id="product7" name="180000410" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+          <li>
+          <label for="product7">180000345 (Palm 13.05 KG)</label>
+            <input type="number" id="product7" name="180000345" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
+          </li>
+        </ul>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+        </div>
+      </div>
+    </form>
+    <div id="message" style="
+    display: none;
+    margin: 20px;
+    font-weight: bold;
+    color: green;
+    padding: 8px;
+    background-color: beige;
+    border-radius: 4px;
+    border-color: aquamarine;
+  "></div>
+  </div>
+  <script>
+    function updateName() {
+      // Get the number entered by the user
+      var number = document.getElementById("numberInput").value;
+
+      // In a real-world scenario, you would fetch data from your spreadsheet based on this number
+      // For demonstration purposes, I'm using a hardcoded mapping represented as an object
+      var nameMapping = {
+        "360762": {
+          name: "Amolakchand (Jumbotail)",
+          city: "NELAMANGALA"
+        },
+        "363714": {
+          name: "Amolakchand (Jumbotail)",
+          city: "BANGALORE"
+        },
+        "360512": {
+          name: "Avenue Supermarts Limited",
+          city: "MANGALORE"
+        },
+        "360538": {
+          name: "Avenue Supermarts Limited",
+          city: "BENGALURU"
+        },
+        "360644": {
+          name: "Avenue Supermarts Limited",
+          city: "GULBARGA"
+        },
+        "360725": {
+          name: "Avenue Supermarts Limited",
+          city: "UDUPI"
+        },
+        "360768": {
+          name: "Avenue Supermarts Limited",
+          city: "MANGALORE"
+        },
+        "361332": {
+          name: "Avenue Supermarts Limited",
+          city: "BELGAUM"
+        },
+        "361913": {
+          name: "Avenue Supermarts Limited",
+          city: "BELGAUM"     
+        },
+        "363639": {name: "Amazon Retail India Pvt.Ltd",
+           city:"KOLAR"},
+"360639": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"BENGALURU"},
+"361594": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"BENGALURU"},
+"363624": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"Dharwad"},
+"360440": {name: "Hands On Trades Private Limited",city:"BENGALURU"},
+"360006": {name: "Innovative Retail Concepts Pvt Ltd",city:"HOBLI"},
+"360542": {name: "Innovative Retail Concepts Pvt Ltd",city:"BENGALURU"},
+"363587": {name: "Innovative Retail Concepts Pvt Ltd",city:"MYSORE"},
+"360026": {name: "Kiranakart",city:"HOSKOTE"},
+"363586": {name: "Kiranakart",city:"Bangalore"},
+"360560": {name: "LULU INTERNATIONAL SHOPPING MALLS P",city:"BENGALURU"},
+"360711": {name: "MAX HYPER MARKET INDIA PRIVATE LIMI",city:"HOSKOTE"},
+"360809": {name: "Metro Cash & Carry Pvt Ltd",city:"TUMKUR"},
+"360339": {name: "Metro Cash & Carry Pvt Ltd",city:"Dharwad"},
+"361776": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"361848": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"362172": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"362173": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"362864": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"362865": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"363561": {name: "Metro Cash & Carry Pvt Ltd",city:"BENGALURU"},
+"363659": {name: "Metro Cash & Carry Pvt Ltd",city:"MANDYA"},
+"363662": {name: "Metro Cash & Carry Pvt Ltd",city:"DAVANGERE"},
+"363670": {name: "Metro Cash & Carry Pvt Ltd",city:"HUBLI"},
+"363671": {name: "Metro Cash & Carry Pvt Ltd",city:"HASSAN"},
+"363514": {name: "Moonstone (Blinkit)",city:"Bangalore"},
+"360577": {name: "MORE RETAIL PRIVATE LIMITED",city:"HUBLI"},
+"360901": {name: "MORE RETAIL PRIVATE LIMITED",city:"BENGALURU"},
+"360912": {name: "RELIANCE RETAIL LIMITED",city:"NELAMANGALA"},
+"360932": {name: "RELIANCE RETAIL LIMITED",city:"NELAMANGALA"},
+"361775": {name: "Reliance Retails Limited",city:"NELAMANGALA"},
+"360111": {name: "Scootsy Logistics Private Limited",city:"HOBLI"},
+"361496": {name: "Trent Hyper Market Private Limited",city:"BENGALURU"},
+"360364": {name: "Zomato Hyperpure Private Limited",city:"BENGALURU"},
+"363581": {name: "Moksh Enterprises Pvt.Ltd",city:"BANGALORE"},
+"363582": {name: "Moksh Enterprises Pvt.Ltd",city:"HOSAKOTE"},
+"363583": {name: "Moksh Enterprises Pvt.Ltd",city:"BANGALORE"},
+"363584": {name: "Moksh Enterprises Pvt.Ltd",city:"HOSAKOTE"},
+"363622": {name: "Moksh Enterprises Pvt.Ltd",city:"HOSAKOTE"},
+"360561": {name: "Metro Cash & Carry Pvt Ltd",city:"MANGALAGIRI"},
+"360971": {name: "Metro Cash & Carry Pvt Ltd",city:"VISAKHAPATNAM"},
+"362233": {name: "Metro Cash & Carry Pvt Ltd",city:"VIJAYAWADA"},
+"363634": {name: "Metro Cash & Carry Pvt Ltd",city:"ONGOLE"},
+"363635": {name: "Metro Cash & Carry Pvt Ltd",city:"KURNOOL"},
+"363636": {name: "Metro Cash & Carry Pvt Ltd",city:"NANDYAL"},
+"363649": {name: "Metro Cash & Carry Pvt Ltd",city:"NELLORE"},
+"363650": {name: "Metro Cash & Carry Pvt Ltd",city:"RAJAHMUNDRY"},
+"363651": {name: "Metro Cash & Carry Pvt Ltd",city:"TADEPALLIGUDEM"},
+"363652": {name: "Metro Cash & Carry Pvt Ltd",city:"RENIGUNTA"},
+"363653": {name: "Metro Cash & Carry Pvt Ltd",city:"ANAKAPALLE"},
+"363654": {name: "Metro Cash & Carry Pvt Ltd",city:"ADONI"},
+"363640": {name: "Metro Cash & Carry Pvt Ltd",city:"CHITTOOR"},
+"363641": {name: "Metro Cash & Carry Pvt Ltd",city:"ANANTAPUR"},
+"363642": {name: "Metro Cash & Carry Pvt Ltd",city:"BHIMAVARAM"},
+"363643": {name: "Metro Cash & Carry Pvt Ltd",city:"TENALI"},
+"363644": {name: "Metro Cash & Carry Pvt Ltd",city:"GUNTUR"},
+"363645": {name: "Metro Cash & Carry Pvt Ltd",city:"CUDAPAH"},
+"363647": {name: "Metro Cash & Carry Pvt Ltd",city:"KAIKALUR"},
+"363648": {name: "Metro Cash & Carry Pvt Ltd",city:"KAKINADA"},
+"360899": {name: "MORE RETAIL PRIVATE LIMITED",city:"PENDURTHI"},
+"360900": {name: "MORE RETAIL PRIVATE LIMITED",city:"GUNTUR"},
+"360205": {name: "RELIANCE RETAIL LIMITED",city:"NUNNA"},
+"360281": {name: "RELIANCE RETAIL LIMITED",city:"VISAKHAPATNAM"},
+"360338": {name: "RELIANCE RETAIL LIMITED",city:"ONGOLE"},
+"360345": {name: "RELIANCE RETAIL LIMITED",city:"TENALI"},
+"360346": {name: "RELIANCE RETAIL LIMITED",city:"CHITTOOR"},
+"360475": {name: "RELIANCE RETAIL LIMITED",city:"VIZIANAGARAM"},
+"360477": {name: "RELIANCE RETAIL LIMITED",city:"ANANTAPUR"},
+"360478": {name: "RELIANCE RETAIL LIMITED",city:"ANAKAPALLE"},
+"360645": {name: "RELIANCE RETAIL LIMITED",city:"KAKINADA"},
+"360646": {name: "RELIANCE RETAIL LIMITED",city:"RENIGUNTA"},
+"360647": {name: "RELIANCE RETAIL LIMITED",city:"KURNOOL"},
+"360648": {name: "RELIANCE RETAIL LIMITED",city:"NELLORE"},
+"360649": {name: "RELIANCE RETAIL LIMITED",city:"RAJAHMUNDRY"},
+"360650": {name: "RELIANCE RETAIL LIMITED",city:"VIJAYAWADA"},
+"360651": {name: "RELIANCE RETAIL LIMITED",city:"CUDAPAH"},
+"360652": {name: "RELIANCE RETAIL LIMITED",city:"KAIKALUR"},
+"360654": {name: "RELIANCE RETAIL LIMITED",city:"NANDYAL"},
+"361025": {name: "RELIANCE RETAIL LIMITED",city:"RAJAHMUNDRY"},
+"361832": {name: "RELIANCE RETAIL LIMITED",city:"KURNOOL"},
+"361946": {name: "RELIANCE RETAIL LIMITED",city:"ANANTAPUR"},
+"361950": {name: "RELIANCE RETAIL LIMITED",city:"MANGALAGIRI"},
+"362296": {name: "RELIANCE RETAIL LIMITED",city:"GUNTUR"},
+"361423": {name: "SPENCER'S RETAIL LIMITED",city:"VISAKHAPATNAM"},
+"361424": {name: "SPENCER'S RETAIL LIMITED",city:"VIJAYAWADA"},
+"363665": {name: "Arunachala Logistics (Todays Basket)",city:"NELLORE"},
+"361081": {name: "Wal Mart India Pvt Ltd",city:"KURNOOL"},
+"361082": {name: "Wal Mart India Pvt Ltd",city:"TIRUPATI"},
+"361322": {name: "Wal Mart India Pvt Ltd",city:"VISAKHAPATNAM"},
+"362232": {name: "Wal Mart India Pvt Ltd",city:"RAJAHMUNDRY"},
+"362568": {name: "Wal Mart India Pvt Ltd",city:"VIJAYAWADA"},
+"362580": {name: "Wal Mart India Pvt Ltd",city:"GUNTUR"},
+"360489": {name: "Max Hypermarket India Pvt Ltd",city:"HYDERABAD"},
+"361485": {name: "Metro Cash & Carry Pvt Ltd",city:"HYDERABAD"},
+"362058": {name: "Metro Cash & Carry Pvt Ltd",city:"HYDERABAD"},
+"362866": {name: "Metro Cash & Carry Pvt Ltd",city:"HYDERABAD"},
+"363084": {name: "Metro Cash & Carry Pvt Ltd",city:"HYDERABAD"},
+"363626": {name: "Metro Cash & Carry Pvt Ltd",city:"BODHAN"},
+"363627": {name: "Metro Cash & Carry Pvt Ltd",city:"MAHABUBNAGAR"},
+"363628": {name: "Metro Cash & Carry Pvt Ltd",city:"NARKETPALLY"},
+"363629": {name: "Metro Cash & Carry Pvt Ltd",city:"NIZAMABAD"},
+"363630": {name: "Metro Cash & Carry Pvt Ltd",city:"SURYAPET"},
+"363631": {name: "Metro Cash & Carry Pvt Ltd",city:"WARANGAL"},
+"363632": {name: "Metro Cash & Carry Pvt Ltd",city:"KARIMNAGAR"},
+"363633": {name: "Metro Cash & Carry Pvt Ltd",city:"SIDDIPET"},
+"360898": {name: "MORE RETAIL PRIVATE LIMITED",city:"HYDERABAD"},
+"360382": {name: "RELIANCE RETAIL LIMITED",city:"KARIMNAGAR"},
+"360383": {name: "RELIANCE RETAIL LIMITED",city:"MAHABUBNAGAR"},
+"360397": {name: "RELIANCE RETAIL LIMITED",city:"NARKETPALLY"},
+"360398": {name: "RELIANCE RETAIL LIMITED",city:"ADILABAD"},
+"360656": {name: "RELIANCE RETAIL LIMITED",city:"BODHAN"},
+"360874": {name: "RELIANCE RETAIL LIMITED",city:"HYDERABAD"},
+"360883": {name: "RELIANCE RETAIL LIMITED",city:"MEDCHAL"},
+"360970": {name: "RELIANCE RETAIL LIMITED",city:"MEDCHAL"},
+"362375": {name: "RELIANCE RETAIL LIMITED",city:"KAPRA"},
+"363085": {name: "RELIANCE RETAIL LIMITED",city:"HYDERABAD"},
+"361427": {name: "Spencer Retail Limited",city:"HYDERABAD"},
+"361552": {name: "Trent Hyper Market Private Limited",city:"HYDERABAD"},
+"361414": {name: "Wal Mart India Pvt Ltd",city:"KARIMNAGAR"},
+"362224": {name: "Wal Mart India Pvt Ltd",city:"HYDERABAD"},
+"360766": {name: "WAL-MART INDIA PRIVATE LIMITED",city:"RAIPUR"},
+"363399": {name: "Shubham K Mart Pvt.Ltd",city:"BHILAI"},
+"363351": {name: "Shubham K Mart Pvt.Ltd",city:"RAIPUR"},
+"360022": {name: "SULAGNA",city:"BHUBANESWAR"},
+"360030": {name: "RELIANCE RETAIL LIMITED",city:"BERHAMPUR"},
+"360031": {name: "RELIANCE RETAIL LIMITED",city:"CHARAMPA"},
+"360160": {name: "RELIANCE RETAIL LIMITED",city:"KHORDA"},
+"360282": {name: "SUPERMARKET GROCERY SUPPLIES PVT LT",city:"BHUBANESWAR"},
+"360377": {name: "MORE RETAIL PRIVATE LIMITED",city:"KHORDA"},
+"363544": {name: "MORE RETAIL PRIVATE LIMITED",city:"DUNKUNI"},
+"360546": {name: "Anand Super Bazaar",city:"SAMBALPUR"},
+"360576": {name: "Anand Hyper Market",city:"SAMBALPUR"},
+"360709": {name: "Innovative Retail Concepts Pvt Ltd",city:"BHUBANESWAR"},
+"361135": {name: "RELIANCE RETAIL LIMITED",city:"KHURDA"},
+"363092": {name: "RELIANCE RETAIL LIMITED",city:"BALASORE"},
+"363501": {name: "Anand Hyper Market",city:"SAMBALPUR"},
+"363526": {name: "Flipkart",city:"BHUBANESWAR"},
+"363277": {name: "Amolakchand (Jumbotail)",city:"VISAKHAPATNAM"},
+"363278": {name: "Amolakchand (Jumbotail)",city:"VIJAYAWADA"},
+"360123": {name: "Avenue Supermarts Limited",city:"SURAMPALLI"},
+"360197": {name: "Avenue Supermarts Limited",city:"VIZIANAGARAM"},
+"360217": {name: "Avenue Supermarts Limited",city:"VIJAYAWADA"},
+"360242": {name: "Avenue Supermarts Limited",city:"MADANAPALLE"},
+"360244": {name: "Avenue Supermarts Limited",city:"KAKINADA"},
+"360420": {name: "Avenue Supermarts Limited",city:"VISAKHAPATNAM"},
+"360463": {name: "Avenue Supermarts Limited",city:"GUNTUR"},
+"360613": {name: "Avenue Supermarts Limited",city:"VIJAYAWADA"},
+"360946": {name: "Avenue Supermarts Limited",city:"MACHILIPATNAM"},
+"361089": {name: "Avenue Supermarts Limited",city:"VISAKHAPATNAM"},
+"361099": {name: "Avenue Supermarts Limited",city:"ANANTAPUR"},
+"361112": {name: "Avenue Supermarts Limited",city:"GUNTUR"},
+"361130": {name: "Avenue Supermarts Limited",city:"GUDIVADA"},
+"361131": {name: "Avenue Supermarts Limited",city:"VIJAYAWADA"},
+"361132": {name: "Avenue Supermarts Limited",city:"TANUKU"},
+"363503": {name: "Avenue Supermarts Limited",city:"VISAKHAPATNAM"},
+"363525": {name: "Avenue Supermarts Limited",city:"KURNOOL"},
+"361018": {name: "Avenue Supermarts Limited",city:"RAJAHMUNDRY"},
+"361436": {name: "Avenue Supermarts Limited",city:"RAJAHMUNDRY"},
+"361437": {name: "Avenue Supermarts Limited",city:"TUNI"},
+"361656": {name: "Avenue Supermarts Limited",city:"VISAKHAPATNAM"},
+"361657": {name: "Avenue Supermarts Limited",city:"ELURU"},
+"361679": {name: "Avenue Supermarts Limited",city:"NELLORE"},
+"361687": {name: "Avenue Supermarts Limited",city:"GUNTUR"},
+"361690": {name: "Avenue Supermarts Limited",city:"BHIMAVARAM"},
+"361884": {name: "Avenue Supermarts Limited",city:"TIRUPATI"},
+"361885": {name: "Avenue Supermarts Limited",city:"VIJAYAWADA"},
+"361886": {name: "Avenue Supermarts Limited",city:"KAKINADA"},
+"361887": {name: "Avenue Supermarts Limited",city:"VISAKHAPATNAM"},
+"361901": {name: "Avenue Supermarts Limited",city:"TIRUPATI"},
+"361902": {name: "Avenue Supermarts Limited",city:"ONGOLE"},
+"361903": {name: "Avenue Supermarts Limited",city:"KURNOOL"},
+"363543": {name: "Avenue Supermarts Limited",city:"SURAMPALLI"},
+"360408": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"VIJAYAWADA"},
+"363619": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"VISAKHAPATNAM"},
+"360567": {name: "Innovative Retail Concepts Pvt Ltd",city:"VISAKHAPATNAM"},
+"360543": {name: "Innovative Retail Concepts Pvt Ltd",city:"GANGURU"},
+"360588": {name: "Ratnadeep Retail Private Limited",city:"SURAMPALLI"},
+"360758": {name: "USHODAYA SUPER MARKETS PRIVATE LIMI",city:"GUNTUR"},
+"361860": {name: "Vijetha Super Market",city:"GUNTUR"},
+"361298": {name: "Vijetha Super Market",city:"VIJAYAWADA"},
+"362359": {name: "Vijetha Super Market",city:"VISAKHAPATNAM"},
+"363435": {name: "Vijetha Super Market",city:"KAKINADA"},
+"360110": {name: "Vijetha Super Market",city:"RAJAHMUNDRY"},
+"363275": {name: "Amolakchand (Jumbotail)",city:"HYDERABAD"},
+"363276": {name: "Amolakchand (Jumbotail)",city:"MEDCHAL"},
+"360243": {name: "Avenue Supermarts Limited",city:"KAZIPET"},
+"360431": {name: "Avenue Supermarts Limited",city:"SURYAPET"},
+"360968": {name: "Avenue Supermarts Limited",city:"MANCHERIAL"},
+"361137": {name: "Avenue Supermarts Limited",city:"WARANGAL"},
+"361063": {name: "Avenue Supermarts Limited",city:"HYDERABAD"},
+"361578": {name: "Avenue Supermarts Limited",city:"KHAMMAM"},
+"361904": {name: "Avenue Supermarts Limited",city:"HANAMKONDA"},
+"361905": {name: "Avenue Supermarts Limited",city:"KARIMNAGAR"},
+"363710": {name: "Avenue Supermarts Limited",city:"NIRMAL"},
+"363711": {name: "Avenue Supermarts Limited",city:"MAHABUBNAGAR"},
+"363712": {name: "Avenue Supermarts Limited",city:"NIZAMABAD"},
+"363713": {name: "Avenue Supermarts Limited",city:"MIRYALAGUDA"},
+"360488": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"MEDCHAL"},
+"360579": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"MEDCHAL"},
+"361019": {name: "Hands On Trades Private Limited",city:"MEDCHAL"},
+"360544": {name: "INNOVATIVE RETAIL CONCEPTS PVT. LTD",city:"HYDERABAD"},
+"360453": {name: "Kiranakart",city:"MEDCHAL"},
+"363350": {name: "LULU INTERNATIONAL SHOPPING MALLS P",city:"RASHEEDGUDA"},
+"363436": {name: "LULU INTERNATIONAL SHOPPING MALLS P",city:"HYDERABAD"},
+"363515": {name: "Moonstore (Blinkit)",city:"HYDERABAD"},
+"360367": {name: "Ratnadeep Retail Private Limited",city:"HYDERABAD"},
+"363458": {name: "Ratnadeep Retail Private Limited",city:"HYDERABAD"},
+"363502": {name: "Ratnadeep Retail Private Limited",city:"MAHABUBNAGAR"},
+"360280": {name: "Scootsy Logistics Private Limited",city:"MEDCHAL"},
+"360336": {name: "Scootsy Logistics Private Limited",city:"MEDCHAL"},
+"363687": {name: "Cloudkart Ventures Pvt.Ltd",city:"HYDERABAD"},
+"363021": {name: "SUPERMARKET GROCERY SUPPLIES PVT LT",city:"HYDERABAD"},
+"360757": {name: "USHODAYA SUPER MARKETS PRIVATE LIMI",city:"HYDERABAD"},
+"362358": {name: "Vijetha Super Markets Pvt Ltd",city:"HYDERABAD"},
+"363673": {name: "Value Zone (RS Brothers)",city:"PATANCHERU"},
+"363672": {name: "Docile Online",city:"SIDDIPET"},
+"360360": {name: "Zomato Hyperpure Private Limited",city:"HYDERABAD"},
+"360195": {name: "Avenue Supermarts Limited",city:"KOLHAPUR"},
+"363637": {name: "Bodega Retail Pvt.Ltd",city:"PUNE"},
+"360317": {name: "Avenue Supermarts Limited",city:"CHENNAI"},
+"360480": {name: "RELIANCE RETAIL LIMITED",city:"MADURAI"},
+"360697": {name: "Avenue Supermarts Limited",city:"CHENNAI"},
+"363589": {name: "Avenue Supermarts Limited",city:"VELLORE"},
+"360728": {name: "Avenue Supermarts Limited",city:"CHENNAI"},
+"363425": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"THIRUVALLUR"},
+"363660": {name: "KPN Farm Fresh Pvt.Ltd",city:"CHENNAI"},
+"363434": {name: "Avenue Supermarts Limited",city:"KANCHEEPURAM"},
+"363130": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"Hooghly"},
+"363131": {name: "FLIPKART INDIA PRIVATE LIMITED",city:"HOWRAH"},
+"363715": {name: "Amolakchand (Jumbotail)",city:"RANCHI"},
+        // Add more mappings as needed
+      };
+
+      // Update the name, city, and district fields based on the number entered
+      var mappedData = nameMapping[number];
+      if (mappedData) {
+        document.getElementById("nameOutput").value = mappedData.name;
+        document.getElementById("cityOutput").value = mappedData.city;
+        // Update district if necessary
+        // document.getElementById("districtOutput").value = mappedData.district;
+      } else {
+        document.getElementById("nameOutput").value = "";
+        document.getElementById("cityOutput").value = "";
+        // document.getElementById("districtOutput").value = "";
+      }
+    }
+
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault(); // Prevent the default form submission
+      document.getElementById("message").textContent = "Submitting..";
+      document.getElementById("message").style.display = "block";
+      document.getElementById("submit-button").disabled = true;
+      // Collect the form data
+      var formData = new FormData(this);
+      var keyValuePairs = [];
+      for (var pair of formData.entries()) {
+        keyValuePairs.push(pair[0] + "=" + pair[1]);
+      }
+      var formDataString = keyValuePairs.join("&");
+      // Send a POST request to your Google Apps Script
+      fetch("https://script.google.com/macros/s/AKfycbxF4KZd7ILHLE07IFD--k8sRPVndUcQhY_b3g4igt5v3TZPEA9D34De8ot-7NL9gpM-BA/exec", {
+        redirect: "follow",
+        method: "POST",
+        body: formDataString,
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      }).then(function(response) {
+        // Check if the request was successful
+        if (response) {
+          return response; // Assuming your script returns JSON response
+        } else {
+          throw new Error("Failed to submit the form.");
+        }
+      }).then(function(data) {
+        // Display a success message
+        document.getElementById("message").textContent = "Data submitted successfully!";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").style.backgroundColor = "green";
+        document.getElementById("message").style.color = "beige";
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("form").reset();
+        setTimeout(function() {
+          document.getElementById("message").textContent = "";
+          document.getElementById("message").style.display = "none";
+        }, 2600);
+      }).catch(function(error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        document.getElementById("message").textContent = "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
+      });
+    });
+  </script>
+</body>
+
+</html>

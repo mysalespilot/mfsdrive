@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MFS Store Wise Stocks</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      width: 100%;
+      background: #009579;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 7px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    .container .form {
+      padding: 1rem;
+    }
+    .form header {
+      font-size: 1.5rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .form input, .form select {
+      height: 40px;
+      width: 100%;
+      padding: 0 10px;
+      font-size: 14px;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+    }
+    .form input:focus, .form select:focus {
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    }
+    .form a {
+      font-size: 14px;
+      color: #009579;
+      text-decoration: none;
+    }
+    .form a:hover {
+      text-decoration: underline;
+    }
+    .form input.button {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-top: 1.2rem;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+    .form input.submit-button {
+      background: #009579;
+    }
+    .form input.submit-button:hover {
+      background: #006653;
+    }
+    .form input.cancel-button {
+      background: #e94e77;
+    }
+    .form input.cancel-button:hover {
+      background: #b23a55;
+    }
+    .signup {
+      font-size: 14px;
+      text-align: center;
+    }
+    .signup label {
+      color: #009579;
+      cursor: pointer;
+    }
+    .signup label:hover {
+      text-decoration: underline;
+    }
+    .sku-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .sku-container input {
+      width: 48%;
+    }
+    .sku-container label {
+      width: 100%;
+      font-size: 14px;
+      color: #333;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="form" class="form" method="POST">
+      <header>MFS Store Wise Stocks</header>
+      <div class="field">
+        <label class="label">Store Name</label>
+        <div class="control">
+          <div class="select">
+            <select name="StoreName">
+              <option>Select a Store</option>
+              <option value="AIRPLAZA RETAIL HOLDINGS PRIVATE LI">AIRPLAZA RETAIL HOLDINGS PRIVATE LI</option>
+<option value="Reliance Retail Ltd.,">Reliance Retail Ltd.,</option>
+<option value="More Retail Pvt.Ltd.,">More Retail Pvt.Ltd.,</option>
+<option value="Innovative Retail Concepts Pvt.Ltd.">Innovative Retail Concepts Pvt.Ltd.</option>
+<option value="Sulagna">Sulagna</option>
+<option value="Kiranakart">Kiranakart</option>
+<option value="Ratnadeep Retail Pvt.Ltd.,">Ratnadeep Retail Pvt.Ltd.,</option>
+<option value="Ghanshyam Super Market">Ghanshyam Super Market</option>
+<option value="Vijetha Supermarkets Pvt.Ltd.,">Vijetha Supermarkets Pvt.Ltd.,</option>
+<option value="Scootsy Logistics Pvt.Ltd.,">Scootsy Logistics Pvt.Ltd.,</option>
+<option value="Avenue Supermarts Ltd.,">Avenue Supermarts Ltd.,</option>
+<option value="Supermarket Grocery Supplies Pvt.Lt">Supermarket Grocery Supplies Pvt.Lt</option>
+<option value="Happiness Under Budget Retail Pvt.L">Happiness Under Budget Retail Pvt.L</option>
+<option value="Metro Cash & Carry India Pvt.Ltd.,">Metro Cash & Carry India Pvt.Ltd.,</option>
+<option value="Zomato Hyperpure Pvt.Ltd.,">Zomato Hyperpure Pvt.Ltd.,</option>
+<option value="Flipkart India Pvt.Ltd.,">Flipkart India Pvt.Ltd.,</option>
+<option value="Hands On Trades Pvt.Ltd.,">Hands On Trades Pvt.Ltd.,</option>
+<option value="Max Hypermarket India Pvt.Ltd.,">Max Hypermarket India Pvt.Ltd.,</option>
+<option value="Booker India Ltd.,">Booker India Ltd.,</option>
+<option value="The Akshayapatra Foundation">The Akshayapatra Foundation</option>
+<option value="SS The Mart">SS The Mart</option>
+<option value="Innovative Retail Concepts Pvt. Ltd">Innovative Retail Concepts Pvt. Ltd</option>
+<option value="Anand Super Bazaar">Anand Super Bazaar</option>
+<option value="Lulu International Shopping Malls P">Lulu International Shopping Malls P</option>
+<option value="Anand Hyper Market">Anand Hyper Market</option>
+<option value="Zomato Internet Pvt.Ltd.,">Zomato Internet Pvt.Ltd.,</option>
+<option value="Max Hyper Market India Pvt.Ltd.,">Max Hyper Market India Pvt.Ltd.,</option>
+<option value="Ushodaya Super Markets Pvt.Ltd.,">Ushodaya Super Markets Pvt.Ltd.,</option>
+<option value="Amolakchand Ankur Kothari Enterpri.">Amolakchand Ankur Kothari Enterpri.</option>
+<option value="Amolakchand Ankur Kothari Enter. P.">Amolakchand Ankur Kothari Enter. P.</option>
+<option value="Wal-Mart India Pvt.Ltd.,">Wal-Mart India Pvt.Ltd.,</option>
+<option value="More Retail Ltd.,">More Retail Ltd.,</option>
+<option value="Wal Mart India Pvt.Ltd.,">Wal Mart India Pvt.Ltd.,</option>
+<option value="Ratnadeep Super Market Pvt.Ltd.,">Ratnadeep Super Market Pvt.Ltd.,</option>
+<option value="RK Marketing">RK Marketing</option>
+<option value="Aadhaar Wholesale Trading &Distribu">Aadhaar Wholesale Trading &Distribu</option>
+<option value="My 3 Traders">My 3 Traders</option>
+<option value="Vijetha Super Markets Pvt.Ltd.,">Vijetha Super Markets Pvt.Ltd.,</option>
+<option value="Atluri Foods Pvt.Ltd.,">Atluri Foods Pvt.Ltd.,</option>
+<option value="Tharuni Super Market">Tharuni Super Market</option>
+<option value="Spencer S Retail Ltd.,">Spencer S Retail Ltd.,</option>
+<option value="Spencer Retail Ltd.,">Spencer Retail Ltd.,</option>
+<option value="Pioneer Marketing">Pioneer Marketing</option>
+<option value="Metro Cash & Carry Pvt.Ltd.,">Metro Cash & Carry Pvt.Ltd.,</option>
+<option value="Trent Hyper Market Pvt.Ltd.,">Trent Hyper Market Pvt.Ltd.,</option>
+<option value="Capital Super Markets">Capital Super Markets</option>
+<option value="Vardhansmart Pvt.Ltd.,">Vardhansmart Pvt.Ltd.,</option>
+<option value="Ravikanth Marketing">Ravikanth Marketing</option>
+<option value="Reliance Retails Ltd.,">Reliance Retails Ltd.,</option>
+<option value="J.S.Traders">J.S.Traders</option>
+<option value="Vijetha Super Market">Vijetha Super Market</option>
+<option value="Keogh Consulting India Pvt.Ltd.,">Keogh Consulting India Pvt.Ltd.,</option>
+<option value="VV Mystore India Pvt.Ltd.,">VV Mystore India Pvt.Ltd.,</option>
+<option value="Ushodaya Super Market">Ushodaya Super Market</option>
+<option value="Aditya Birla Retail Ltd.,">Aditya Birla Retail Ltd.,</option>
+<option value="Walmart India Pvt.Ltd.,">Walmart India Pvt.Ltd.,</option>
+<option value="Yagna Sai Enterprises">Yagna Sai Enterprises</option>
+<option value="Avenue Supermarts Ltd">Avenue Supermarts Ltd</option>
+<option value="Bodega Retail Pvt.Ltd.,">Bodega Retail Pvt.Ltd.,</option>
+<option value="Lulu Int. Shopping Malls Pvt.Ltd.,">Lulu Int. Shopping Malls Pvt.Ltd.,</option>
+<option value="Shubham K Mart Pvt.Ltd.,">Shubham K Mart Pvt.Ltd.,</option>
+<option value="Vijetha Supermarkets Pvt.Ltd">Vijetha Supermarkets Pvt.Ltd</option>
+<option value="Moonstone Ventures LLP">Moonstone Ventures LLP</option>
+<option value="Avenue Supermarts Limited">Avenue Supermarts Limited</option>
+<option value="More Retail Private Limited">More Retail Private Limited</option>
+<option value="Moksh Enterprises Pvt.Ltd.,">Moksh Enterprises Pvt.Ltd.,</option>
+<option value="Kiranakart Technologies Pvt.Ltd.,">Kiranakart Technologies Pvt.Ltd.,</option>
+<option value="Metro Cash and Carry India Pvt.Ltd.">Metro Cash and Carry India Pvt.Ltd.</option>
+<option value="Amazon Retail India Pvt.Ltd.,">Amazon Retail India Pvt.Ltd.,</option>
+<option value="Cloudkart Ventures Pvt.Ltd.,">Cloudkart Ventures Pvt.Ltd.,</option>
+<option value="KPN Farm Fresh Pvt.Ltd.,">KPN Farm Fresh Pvt.Ltd.,</option>
+<option value="R.S. Brothers South India Shopping">R.S. Brothers South India Shopping</option>
+<option value="Arunachala Logistics Pvt.Ltd.,">Arunachala Logistics Pvt.Ltd.,</option>
+<option value="Docile Online Mart Pvt.Ltd.,">Docile Online Mart Pvt.Ltd.,</option>
+<option value="Amolakchand Ankur Kothari Enterpris">Amolakchand Ankur Kothari Enterpris</option>
+<option value="Avenue E Commerce Ltd.,">Avenue E Commerce Ltd.,</option>
+<option value="RATNADEEP RETAIL PRIVATE LIMITED">RATNADEEP RETAIL PRIVATE LIMITED</option>
+<option value="RELIANCE RETAIL LIMITED">RELIANCE RETAIL LIMITED</option>
+<option value="SPENCER'S RETAIL LIMITED">SPENCER'S RETAIL LIMITED</option>
+<option value="CLOUDKART VENTURES PRIVATE LIMITED">CLOUDKART VENTURES PRIVATE LIMITED</option>
+<option value="AIRPLAZA RETAIL HOLDINGS PRIVATE LI">AIRPLAZA RETAIL HOLDINGS PRIVATE LI</option>
+<option value="HORECA FOODS INDIA PRIVATE LIMITED">HORECA FOODS INDIA PRIVATE LIMITED</option>
+<option value="M/S YAGNA SAI ENTERPRISES">M/S YAGNA SAI ENTERPRISES</option>
+<option value="KPN FARM FRESH PRIVATE LIMITED">KPN FARM FRESH PRIVATE LIMITED</option>
+<option value="Trent Hypermarket Pvt Ltd">Trent Hypermarket Pvt Ltd</option>
+<option value="FAST TRACK TRADES">FAST TRACK TRADES</option>
+<option value="The Akshaya Patra foundation">The Akshaya Patra foundation</option>
+<option value="VIJETHA SUPERMARKETS PRIVATE LIMITE">VIJETHA SUPERMARKETS PRIVATE LIMITE</option>
+<option value="ASVAH RETAIL PRIVATE LIMITED">ASVAH RETAIL PRIVATE LIMITED</option>
+<option value="FLIPKART INDIA PRIVATE LIMITED">FLIPKART INDIA PRIVATE LIMITED</option>
+<option value="MAX HYPER MARKET INDIA PRIVATE LIMI">MAX HYPER MARKET INDIA PRIVATE LIMI</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Area</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Enter Area"
+            name="Area"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">SF 1X16 Pouch Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="SF1X16PouchCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="SF1X16PouchUnits"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">SF 2X6 Pet Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="SF2X6PetCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="SF2X6PetUnits"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">SF 5X4 Jar Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="SF5X4JarCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="SF5X4JarUnits"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">RB 1X10 Pouch Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="RB1X10PouchCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="RB1X10PouchUnits"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">GN 1X10 Pouch Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="GN1X10PouchCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="GN1X10PouchUnits"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Mustad 1X12 Pet Quantity</label>
+        <div class="sku-container">
+          <input
+            class="input"
+            type="number"
+            placeholder="Cases"
+            name="Mustad1X12PetCases"
+          />
+          <input
+            class="input"
+            type="number"
+            placeholder="Units"
+            name="Mustad1X12PetUnits"
+          />
+        </div>
+      </div>
+
+      <div class="button-container">
+        <input class="button submit-button" type="submit" id="submit-button" value="Submit" />
+        <input class="button cancel-button" type="button" value="Cancel" />
+      </div>
+    </form>
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        font-weight: bold;
+        color: green;
+        padding: 8px;
+        background-color: beige;
+        border-radius: 4px;
+        border-color: aquamarine;
+      "
+    ></div>
+  </div>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent the default form submission
+      document.getElementById("message").textContent = "Submitting..";
+      document.getElementById("message").style.display = "block";
+      document.getElementById("submit-button").disabled = true;
+
+      // Collect the form data
+      var formData = new FormData(this);
+      var formDataString = new URLSearchParams(formData).toString();
+
+      // Send a POST request to your Google Apps Script
+      fetch(
+        "https://script.google.com/macros/s/AKfycbyKx166mTk1FGiNH-Ixv4aMIUEyyw_Jwzz3b_wIJP8_Y75KTsKdNJnWrAMbfq6q-LJ3DQ/exec",
+        {
+          method: "POST",
+          body: formDataString,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Failed to submit the form.");
+          }
+        })
+        .then(function (data) {
+          document.getElementById("message").textContent =
+            "Data submitted successfully!";
+          document.getElementById("message").style.display = "block";
+          document.getElementById("message").style.backgroundColor = "green";
+          document.getElementById("message").style.color = "beige";
+          document.getElementById("submit-button").disabled = false;
+          document.getElementById("form").reset();
+
+          setTimeout(function () {
+            document.getElementById("message").textContent = "";
+            document.getElementById("message").style.display = "none";
+          }, 2600);
+        })
+        .catch(function (error) {
+          console.error(error);
+          document.getElementById("message").textContent =
+            "An error occurred while submitting the form.";
+          document.getElementById("message").style.display = "block";
+        });
+    });
+  </script>
+</body>
+</html>

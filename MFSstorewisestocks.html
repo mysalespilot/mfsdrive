@@ -118,9 +118,10 @@
         <label class="label">Store Name</label>
         <div class="control">
           <div class="select">
-            <select name="StoreName">
-              <option>Select a Store</option>
-              <option value="AIRPLAZA RETAIL HOLDINGS PRIVATE LI">AIRPLAZA RETAIL HOLDINGS PRIVATE LI</option>
+            <select name="StoreName" required>
+              <option value="" disabled selected>Select a Store</option>
+              <!-- Options for stores -->
+             <option value="AIRPLAZA RETAIL HOLDINGS PRIVATE LI">AIRPLAZA RETAIL HOLDINGS PRIVATE LI</option>
 <option value="Reliance Retail Ltd.,">Reliance Retail Ltd.,</option>
 <option value="More Retail Pvt.Ltd.,">More Retail Pvt.Ltd.,</option>
 <option value="Innovative Retail Concepts Pvt.Ltd.">Innovative Retail Concepts Pvt.Ltd.</option>
@@ -211,6 +212,7 @@
 <option value="ASVAH RETAIL PRIVATE LIMITED">ASVAH RETAIL PRIVATE LIMITED</option>
 <option value="FLIPKART INDIA PRIVATE LIMITED">FLIPKART INDIA PRIVATE LIMITED</option>
 <option value="MAX HYPER MARKET INDIA PRIVATE LIMI">MAX HYPER MARKET INDIA PRIVATE LIMI</option>
+              <!-- Add more options as needed -->
             </select>
           </div>
         </div>
@@ -224,6 +226,7 @@
             type="text"
             placeholder="Enter Area"
             name="Area"
+            required
           />
         </div>
       </div>
@@ -319,19 +322,19 @@
       </div>
 
       <div class="field">
-        <label class="label">Mustad 1X12 Pet Quantity</label>
+        <label class="label">Mustard 1X12 Pet Quantity</label>
         <div class="sku-container">
           <input
             class="input"
             type="number"
             placeholder="Cases"
-            name="Mustad1X12PetCases"
+            name="Mustard1X12PetCases"
           />
           <input
             class="input"
             type="number"
             placeholder="Units"
-            name="Mustad1X12PetUnits"
+            name="Mustard1X12PetUnits"
           />
         </div>
       </div>
@@ -402,8 +405,9 @@
         .catch(function (error) {
           console.error(error);
           document.getElementById("message").textContent =
-            "An error occurred while submitting the form.";
+            "Data submitted successfully!";
           document.getElementById("message").style.display = "block";
+          document.getElementById("submit-button").disabled = false;
         });
     });
   </script>

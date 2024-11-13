@@ -101,19 +101,19 @@
         <input type="text" id="cityOutput" name="City" readonly style="width: 45%;">
       </div>
       <div class="field">
-        <label for="poNumberInput">PO Number:</label>
-        <input type="text" id="poNumberInput" name="PO Number" style="width: 45%;">
-      </div>
+  <label for="poNumberInput">PO Number:</label>
+  <input type="text" id="poNumberInput" name="PO Number" style="width: 45%;" required>
+</div>
       <div class="field">
-        <label class="label">Booking Type</label>
-        <div class="control">
-          <div class="select">
-            <select name="BookingType">
-              <option >Select One</option>
-              <option>Sale Order</option>
-              <option>Contract</option>
-            </select>
-          </div>
+  <label class="label">Booking Type</label>
+  <div class="control">
+    <div class="select">
+      <select name="BookingType" required>
+        <option value="">Select One</option>
+        <option>Sale Order</option>
+        <option>Contract</option>
+      </select>
+    </div>
       </div>
     </div>  
       <div class="field">
@@ -135,15 +135,15 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Payment Terms</label>
-        <div class="control">
-          <div class="select">
-            <select name="Payment Terms">
-              <option disabled hidden selected>Select One</option>
-              <option>Z000</option>
-              <option>ZAND</option>
-            </select>
-          </div>
+  <label class="label">Payment Terms</label>
+  <div class="control">
+    <div class="select">
+      <select name="Payment Terms" required>
+        <option value="" disabled hidden selected>Select One</option>
+        <option>Credit</option>
+        <option>Cash</option>
+      </select>
+    </div>
         </div>
       </div>
 

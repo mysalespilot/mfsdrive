@@ -1,0 +1,209 @@
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CG MFS PRICINGS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">CG MFS PRICINGS</h1>
+    </div>
+  </div>
+</section>
+<form id="form" class="container m-4 pl-4" method="POST">
+  <div class="field">
+    <label class="label">SubZone</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="SubZone" name="SubZone" value="Chattisgarh" readonly style="font-weight: bold; width: 60%;">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Town Name</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="TownName" name="TownName" style="width: 60%" required>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" style="width:85%" for="storename">Store Name</label>
+    <div class="control">
+      <div class="select">
+        <select id="storename" name="StoreName">
+          <option disabled hidden selected>Select Store</option>
+          <option value="SULAGNA">Shubham K Mart</option>
+<option value="Zomato">Zomato</option>
+<option value="Kiranakart (Zepto)">Kiranakart (Zepto)</option>
+<option value="IRCPL (Big Basket)">IRCPL (Big Basket)</option>
+<option value="Anand Super Bazaar">Anand Super Bazaar</option>
+<option value="Lulu Internationsl">Lulu Internationsl</option>
+<option value="Jumbotail">Jumbotail</option>
+<option value="More Retail">More Retail</option>
+<option value="Spencer's">Spencer's</option>
+<option value="Trent Hyper (Star Bazaar)">Trent Hyper (Star Bazaar)</option>
+<option value="Flipkart">Flipkart</option>
+<option value="Big Basket (B2B)">Big Basket (B2B)</option>
+<option value="Avenue (D-mart)">Avenue (D-mart)</option>
+<option value="Vijetha">Vijetha</option>
+<option value="Reliance Retail">Reliance Retail</option>
+<option value="Metro Cash & Carry">Metro Cash & Carry</option>
+<option value="Walmart">Walmart</option>
+<option value="Max Hyper (SPAR)">Max Hyper (SPAR)</option>
+<option value="Anand Hyper Market">Anand Hyper Market</option>
+<option value="Moonstone (Blinkit)">Moonstone (Blinkit)</option>
+<option value="Moksh Entp (Swiggy)">Moksh Entp (Swiggy)</option>
+<option value="Amazon Retail">Amazon Retail</option>
+<option value="Cloudkart (Swiggy)">Cloudkart (Swiggy)</option>
+<option value="Avenue E-Comm">Avenue E-Comm</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" style="width:35%" for="brandname">Brand Name</label>
+    <div class="control">
+      <div class="select">
+        <select id="brandname" name="BrandName">
+           <option disabled hidden selected>Select Brand</option>
+            <option value="Freedom">Silver Drop</option>
+            <option value="GoldDrop">Kirti gold</option>
+            <option value="GoldWinner">Aadhar</option>
+            <option value="Fortune">Sunpurre</option>
+            <option value="Sunpurre">Dhara</option>
+            <option value="Sunpurre">Fortune</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">1 Ltr</label>
+    <input type="number" placeholder="Enter 1 Ltr Price" name="1_Ltr" class="input" style="width: 30%" required>
+    <div id="1_Ltr_Error" style="color: red; display: none;">Please enter a valid 1 Ltr value.</div>
+  </div>
+  <div class="field">
+    <label class="label">5 Ltr</label>
+    <input type="number" placeholder="Enter 5 Ltr Price" name="5_Ltr" class="input" style="width: 30%" required>
+    <div id="5_Ltr_Error" style="color: red; display: none;">Please enter a valid 5 Ltr value.</div>
+  </div>
+  <div class="field">
+    <label class="label">15 Ltr</label>
+    <input type="number" placeholder="Enter 15 Ltr Price" name="15_Ltr" class="input" style="width: 30%" required>
+    <div id="15_Ltr_Error" style="color: red; display: none;">Please enter a valid 15 Ltr value.</div>
+  </div>
+  <div class="field">
+    <label class="label">15 Kg</label>
+    <input type="number" placeholder="Enter 15 Kg Price" name="15_Kg" class="input" style="width: 30%" required>
+    <div id="15_Kg_Error" style="color: red; display: none;">Please enter a valid 15 Kg value.</div>
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-primary" type="submit" id="submit-button">
+        Submit
+      </button>
+    </div>
+    <div class="control">
+      <button class="button is-danger">Cancel</button>
+    </div>
+  </div>
+</form>
+<div id="message" style="display: none; margin: 20px; font-weight: bold; color: green; padding: 8px; background-color: beige; border-radius: 4px; border-color: aquamarine;"></div>
+<div id="response-preview" style="margin: 20px;"></div>
+
+<script>
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission
+    document.getElementById("message").textContent = "Submitting..";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("submit-button").disabled = true;
+
+    // Collect the form data
+    var formData = new FormData(this);
+    var keyValuePairs = [];
+    for (var pair of formData.entries()) {
+      keyValuePairs.push(pair[0] + "=" + pair[1]);
+    }
+
+    var formDataString = keyValuePairs.join("&");
+
+    // Send a POST request to your Google Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwnY9397ZdVeULk7iWr4EztdgYrnHlIx-k7wrnHaIDgbesOxRc4mnuyGBaHJFv5-mG8/exec",
+      {
+        redirect: "follow",
+        method: "POST",
+        body: formDataString,
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      }
+    )
+      .then(function (response) {
+        // Check if the request was successful
+        if (response.ok) {
+          return response.json(); // Assuming your script returns JSON response
+        } else {
+          throw new Error("Failed to submit the form.");
+        }
+      })
+      .then(function (data) {
+        // Display a success message
+        document.getElementById("message").textContent =
+          "Data submitted successfully!";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").style.backgroundColor = "green";
+        document.getElementById("message").style.color = "beige";
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("form").reset();
+
+        // Render response preview table
+        renderResponsePreview(data);
+        
+        setTimeout(function () {
+          document.getElementById("message").textContent = "";
+          document.getElementById("message").style.display = "none";
+        }, 2600);
+      })
+      .catch(function (error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        document.getElementById("message").textContent =
+          "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
+      });
+  });
+
+ // Add event listeners to validate input fields
+['1_Ltr', '5_Ltr', '15_Ltr', '15_Kg'].forEach(function(fieldName) {
+  document.querySelector('input[name="' + fieldName + '"]').addEventListener('input', function() {
+    var value = this.value;
+    var errorDiv = document.getElementById(fieldName + '_Error');
+    var maxDigits = fieldName === '15_Ltr' || fieldName === '15_Kg' ? 4 : 3;
+    if (value.length > maxDigits || !(/^\d+$/.test(value))) { // Check if value has more than maxDigits digits or is not a number
+      errorDiv.style.display = 'block';
+    } else {
+      errorDiv.style.display = 'none';
+    }
+  });
+});
+
+  function renderResponsePreview(data) {
+    var previewTable = '<table class="table"><thead><tr><th>Serial Number</th>';
+    Object.keys(data).forEach(function(key) {
+      previewTable += '<th>' + key + '</th>';
+    });
+    previewTable += '</tr></thead><tbody>';
+
+    var rowNum = 1;
+    previewTable += '<tr><td>' + rowNum + '</td>';
+    Object.values(data).forEach(function(value) {
+      previewTable += '<td>' + value + '</td>';
+    });
+    previewTable += '</tr></tbody></table>';
+
+    document.getElementById("response-preview").innerHTML = previewTable;
+  }
+</script>
+</body>
+</html>

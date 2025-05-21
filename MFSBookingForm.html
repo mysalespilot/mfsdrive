@@ -1,334 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking Form</title>
   <style>
-    /* Additional CSS to set font color to black */
-    body,
-    input,
-    select,
-    option,
-    label,
-    button {
-      color: black !important;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #fff5e6, #ffe0b2);
+      padding: 20px;
+      margin: 0;
+      color: #5d4037;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .container {
-      padding: 15px;
-      background-color: #f0f0f0;
-      border-radius: 15px;
-      max-width: 100%; /* Adjusted max-width for better responsiveness */
-      margin: 0 auto;
+    h1 {
+      text-align: center;
+      color: #8b4513;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      user-select: none;
     }
 
-    .label {
-      font-weight: bold;
+    form {
+      background: #fffdf7;
+      border: 1px solid #f4e2c2;
+      border-radius: 12px;
+      padding: 25px 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+      transition: box-shadow 0.3s ease;
     }
 
-    .field {
-      margin-bottom: 20px; /* Add some space between fields */
+    form:hover {
+      box-shadow: 0 6px 14px rgba(139, 69, 19, 0.3);
     }
 
-    input[type="number"],
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
     input[type="text"],
+    input[type="number"],
     select {
-      width: 100%; /* Full width input fields */
-      padding: 10px; /* Increased padding for better touch interaction */
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 100%;
+      padding: 10px 12px;
+      font-size: 1rem;
+      border: 1.8px solid #ccc;
+      border-radius: 6px;
       box-sizing: border-box;
-      margin-top: 5px;
+      transition: border-color 0.25s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #8b4513;
+      background-color: #fff8e1;
+    }
+
+    .category-header {
+      background-color: #ffd699;
+      color: #4e342e;
+      padding: 10px 16px;
+      margin: 24px 0 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+
+    .sku-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #f4e2c2;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+    }
+
+    .sku-info {
+      flex: 2 1 60%;
+      font-size: 0.95rem;
+      user-select: text;
+    }
+
+    .sku-qty {
+      flex: 1 1 35%;
+      min-width: 70px;
+    }
+
+    .sku-qty input {
+      width: 100%;
+      padding: 8px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+    }
+
+    .sku-qty input:focus {
+      border-color: #8b4513;
+      background-color: #fff8e1;
+    }
+
+    #message {
+      display: none;
+      margin: 20px auto 0;
+      font-weight: 700;
+      color: green;
+      padding: 10px 15px;
+      background-color: #fff9e6;
+      border-radius: 6px;
+      border: 1px solid aquamarine;
+      max-width: 600px;
+      text-align: center;
+      user-select: none;
     }
 
     button {
-      width: 100%; /* Full width button */
-      padding: 10px;
-      border: none;
-      background-color: #007bff;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      background-color: #8b4513;
       color: white;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
+      max-width: 600px;
+      width: 100%;
+      margin-top: 25px;
+      font-weight: 600;
       transition: background-color 0.3s ease;
+      user-select: none;
     }
 
-    button:hover {
-      background-color: #0056b3;
+    button:hover:not(:disabled) {
+      background-color: #a05d2a;
     }
 
-    ::-webkit-input-placeholder {
-      font-size: 14px;
-      /* Specify your desired font size */
+    button:disabled {
+      background-color: #cfa67a;
+      cursor: not-allowed;
     }
 
-    :-moz-placeholder {
-      font-size: 14px;
-      /* Specify your desired font size */
+    .buttons-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      max-width: 600px;
+      margin-top: 10px;
     }
 
-    ::-moz-placeholder {
-      font-size: 14px;
-      /* Specify your desired font size */
+    .buttons-container button {
+      width: auto;
+      flex: 1;
     }
 
-    :-ms-input-placeholder {
-      font-size: 14px;
-      /* Specify your desired font size */
+    @media (max-width: 480px) {
+      form {
+        padding: 20px;
+      }
+
+      .sku-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .sku-info, .sku-qty {
+        flex: 1 1 100%;
+      }
     }
   </style>
 </head>
-
 <body>
-  <section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <h1 class="title has-text-centered">Booking Form</h1>
+
+  <h1>Booking Form</h1>
+
+  <form id="bookingForm" novalidate>
+    <label for="sapCodeInput">Enter SAP Code:</label>
+    <input
+      type="text"
+      id="sapCodeInput"
+      name="SAP"
+      pattern="\d*"
+      inputmode="numeric"
+      placeholder="Enter numeric SAP Code"
+      aria-describedby="sapHelp"
+      autocomplete="off"
+      required
+    />
+    <small id="sapHelp" style="color:#8b4513; font-size:0.9rem;">Only numeric codes allowed</small>
+
+    <label for="customerName">Customer Name:</label>
+    <input type="text" id="customerName" name="Customer Name" readonly aria-readonly="true" placeholder="Customer Name will appear here" />
+
+    <label for="cityName">City:</label>
+    <input type="text" id="cityName" name="City" readonly aria-readonly="true" placeholder="City will appear here" />
+
+    <label for="poNumberInput">PO Number:</label>
+    <input
+      type="text"
+      id="poNumberInput"
+      name="PONumber"
+      placeholder="Enter PO Number"
+      required
+      aria-required="true"
+      autocomplete="off"
+    />
+
+    <label for="bookingTypeSelect">Booking Type:</label>
+    <select id="bookingTypeSelect" name="BookingType" required aria-required="true">
+      <option value="" disabled selected>Select Booking Type</option>
+      <option value="Sale Order">Sale Order</option>
+      <option value="Contract">Contract</option>
+    </select>
+
+    <label for="plantInput">Plant:</label>
+    <input
+      type="text"
+      id="plantInput"
+      name="Plant"
+      placeholder="Enter Plant"
+      autocomplete="off"
+    />
+
+    <label for="incotermsSelect">Incoterms:</label>
+    <select id="incotermsSelect" name="Incoterms" aria-required="false">
+      <option value="" disabled selected>Select Incoterms</option>
+      <option value="FOR">FOR</option>
+      <option value="EX">EX</option>
+    </select>
+
+    <label for="paymentTermsSelect">Payment Terms:</label>
+    <select id="paymentTermsSelect" name="PaymentTerms" required aria-required="true">
+      <option value="" disabled selected>Select Payment Terms</option>
+      <option value="Credit">Credit</option>
+      <option value="Cash">Cash</option>
+    </select>
+
+    <!-- SF Category -->
+    <div class="category-header" aria-label="SF Category">SF</div>
+    <div class="sku-container">
+      <div class="sku-info">SF 15 KG Tin (Code: 180000005)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000005" placeholder="Qty" min="0" step="1" />
+      </div>
     </div>
-  </section>
-  <div class="container">
-    <form id="form" class="m-4 pl-4" method="POST">
-      <div class="field">
-        <label for="numberInput">Enter SAP Code:</label>
-        <input type="number" id="numberInput" name="SAP" onchange="updateName()" style="width: 45%;" />
+    <div class="sku-container">
+      <div class="sku-info">SF 15 Ltr Tin (Code: 180000006)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000006" placeholder="Qty" min="0" step="1" />
       </div>
-      <div class="field">
-        <label for="nameOutput">Customer Name:</label>
-        <input type="text" id="nameOutput" name="Customer Name" readonly style="width: 75%;">
-      </div>
-      <div class="field">
-        <label for="cityOutput">City:</label>
-        <input type="text" id="cityOutput" name="City" readonly style="width: 45%;">
-      </div>
-      <div class="field">
-  <label for="poNumberInput">PO Number:</label>
-  <input type="text" id="poNumberInput" name="PO Number" style="width: 45%;" required>
-</div>
-      <div class="field">
-  <label class="label">Booking Type</label>
-  <div class="control">
-    <div class="select">
-      <select name="BookingType" required>
-        <option value="">Select One</option>
-        <option>Sale Order</option>
-        <option>Contract</option>
-      </select>
     </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1 x 16 (Code: 180000008)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000008" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1 x 10 Pouch(Code: 180000007)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000007" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1 x 10 Offer Pouch(Code: 180000181)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000181" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1 x 16 Offer pouch(Code: 180000237)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000237" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1/2 Ltr x 20(Code: 180000066)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000066" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1 Ltr x 12 Pet(Code: 180000076)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000076" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+<div class="sku-container">
+      <div class="sku-info">SF 2 Ltr x 6 Pet(Code: 180000179)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000179" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">SF 1/2 Ltr x 24 Pet(Code: 180000203)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000203" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+<div class="sku-container">
+      <div class="sku-info">SF 5 Ltr x 4 Jar(Code: 180000249)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000249" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+<div class="sku-container">
+      <div class="sku-info">SF 10 Ltr Bucket(Code: 180000371)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000371" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+
+    <!-- RB Category -->
+    <div class="category-header" aria-label="RB Category">RB</div>
+    <div class="sku-container">
+      <div class="sku-info">RB 1 x 10 (Code: 180000163)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000163" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">RB 1 x 16 pouch(Code: 180000437)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000437" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+
+    <!-- Sri Krupa Category -->
+    <div class="category-header" aria-label="Sri Krupa Category">Sri Krupa</div>
+    <div class="sku-container">
+      <div class="sku-info">Sri Krupa 1 x 12 Pet (Code: 180000377)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000377" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">Sri Krupa 1/2 Ltr x 24 Pet (Code: 180000378)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000378" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">Sri Krupa 1ltr x 12 pet offer (Code: 180000439)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000439" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+
+    <!-- GN Refined Category -->
+    <div class="category-header" aria-label="GN Refined Category">GN</div>
+    <div class="sku-container">
+      <div class="sku-info">GN 1 x 10 (Code: 180000248)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000248" placeholder="Qty" min="0" step="1" />
+      </div>
+     </div>  
+    
+    <!-- MSD Category -->
+    <div class="category-header" aria-label="MSD Category">MSD</div>
+    <div class="sku-container">
+      <div class="sku-info">MSD 1 x 10 (Code: 180000126)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000126" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">MSD 1/2 Ltr x 20 (Code: 180000127)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000127" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">MSD OIL 5 Ltr x 4 (Code: 180000151)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000151" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">MSD OIL 1 Pet x 12 (Code: 180000260)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000260" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">MSD 1/2 Ltr x 24 (Code: 180000261)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000261" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+<div class="sku-container">
+      <div class="sku-info">MSD OIL 5LTR x 4 Bkt (Code: 180000407)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000407" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">MSD 1 x 16 pouch (Code: 180000315)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000315" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+
+    <!-- Palm Category -->
+    <div class="category-header" aria-label="Palm Category">Palm</div>
+    <div class="sku-container">
+      <div class="sku-info">Palm 850G x 10 (Code: 180000409)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000409" placeholder="Qty" min="0" step="1" />
       </div>
     </div>  
-      <div class="field">
-        <label class="label">Plant</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Plant" name="Plant" style="width: 30%;" />
-        </div>
+    <div class="sku-container">
+      <div class="sku-info">Palm 850G x 15 (Code: 180000410)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000410" placeholder="Qty" min="0" step="1" />
       </div>
-      <div class="field">
-        <label class="label">Incoterms</label>
-        <div class="control">
-          <div class="select">
-            <select name="Incoterms">
-              <option disabled hidden selected>Select One</option>
-              <option>FOR</option>
-              <option>EX</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-  <label class="label">Payment Terms</label>
-  <div class="control">
-    <div class="select">
-      <select name="Payment Terms" required>
-        <option value="" disabled hidden selected>Select One</option>
-        <option>Credit</option>
-        <option>Cash</option>
-      </select>
     </div>
-        </div>
+    <div class="sku-container">
+      <div class="sku-info">Palm 800G x 10 (Code: 180000470)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000470" placeholder="Qty" min="0" step="1" />
       </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">Palm 800G x 15 (Code: 180000474)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000474" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <div class="sku-container">
+      <div class="sku-info">Palm 13.05 KG (Code: 180000345)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000345" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>
+    <!-- Berite Category -->
+    <div class="category-header" aria-label="Berite Category">Be Rite</div>
+    <div class="sku-container">
+      <div class="sku-info">Be Rite 1 x 10 pouch(Code: 180000424)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000424" placeholder="Qty" min="0" step="1" />
+      </div>
+     </div> 
+      <div class="sku-container">
+      <div class="sku-info">Be Rite 1/2 x 20 pouch (Code: 180000425)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000425" placeholder="Qty" min="0" step="1" />
+      </div>
+     </div> 
+      <div class="sku-container">
+      <div class="sku-info">Be Rite 750ml X 12 pouch (Code: 180000426)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000426" placeholder="Qty" min="0" step="1" />
+      </div>
+    </div>  
+      <div class="sku-container">
+      <div class="sku-info">Be Rite 5 x 4 Ltr (Code: 180000428)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000428" placeholder="Qty" min="0" step="1" />
+      </div>
+     </div> 
+      <div class="sku-container">
+      <div class="sku-info">Be Rite 2 x 6 Ltr(Code: 180000427)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000427" placeholder="Qty" min="0" step="1" />
+      </div>
+     </div> 
+<div class="sku-container">
+      <div class="sku-info">Be Rite 15 Ltr Tin(Code: 180000429)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000429" placeholder="Qty" min="0" step="1" />
+      </div>
+   </div>   
+<div class="sku-container">
+      <div class="sku-info">Be Rite 15 Kg Tin(Code: 180000430)</div>
+      <div class="sku-qty">
+        <input type="number" name="180000430" placeholder="Qty" min="0" step="1" />
+   </div>
+</div>
 
-      <div class="field">
-        <label class="label">Sku Wise Quantity</label>
-        <ul>
-          <li>
-            <label for="product1">180000005 (SF 15 KG Tin)</label>
-            <input type="number" id="product1" name="180000005" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product2">180000006 (SF 15 Ltr Tin)</label>
-            <input type="number" id="product2" name="180000006" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product3">180000008 (SF 1 x 16)</label>
-            <input type="number" id="product3" name="180000008" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product4">180000007 (SF 1 x 10 pouch)</label>
-            <input type="number" id="product4" name="180000007" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product5">180000181 (SF 1 x 10 Offer pouch)</label>
-            <input type="number" id="product5" name="180000181" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product6">180000237 (SF 1 x 16 Offer pouch)</label>
-            <input type="number" id="product6" name="180000237" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <label for="product7">180000066 (SF 1/2 Ltr x 20)</label>
-            <input type="number" id="product7" name="180000066" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product8">180000076 (SF 1 Ltr x 12 Pet)</label>
-            <input type="number" id="product8" name="180000076" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product9">180000179 (SF 2 Ltr x 6 Pet)</label>
-            <input type="number" id="product9" name="180000179" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product10">180000203 (SF 1/2 Ltr x 24 Pet)</label>
-            <input type="number" id="product10" name="180000203" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product11">180000249 (SF 5 Ltr x 4 Jar)</label>
-            <input type="number" id="product11" name="180000249" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product12">180000371 (SF 10 Ltr Bucket)</label>
-            <input type="number" id="product12" name="180000371" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product13">180000163 (RB 1 x 10)</label>
-            <input type="number" id="product13" name="180000163" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product14">180000377 (Sri Krupa 1 x 12 Pet)</label>
-            <input type="number" id="product14" name="180000377" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product15">180000378 (Sri Krupa 1/2 Ltr x 24 Pet)</label>
-            <input type="number" id="product15" name="180000378" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product16">180000248 (GN 1 x 10)</label>
-            <input type="number" id="product16" name="180000248" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product17">180000126 (MSD 1 x 10)</label>
-            <input type="number" id="product17" name="180000126" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product18">180000127 (MSD 1/2 Ltr x 20)</label>
-            <input type="number" id="product18" name="180000127" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product19">180000151 (MSD OIL 5 Ltr x 4)</label>
-            <input type="number" id="product19" name="180000151" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product20">180000260 (MSD OIL 1 Pet x 12)</label>
-            <input type="number" id="product20" name="180000260" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product21">180000261 (MSD 1/2 Ltr x 24)</label>
-            <input type="number" id="product21" name="180000261" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product22">180000407 (MSD OIL 5LTR x 4 Bkt)</label>
-            <input type="number" id="product22" name="180000407" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product23">180000409 (Palm 850G x 10)</label>
-            <input type="number" id="product23" name="180000409" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product24">180000410 (Palm 850G x 15)</label>
-            <input type="number" id="product24" name="180000410" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product24">180000470 (Palm 800G x 10)</label>
-            <input type="number" id="product25" name="180000470" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-            <label for="product24">180000474 (Palm 800G x 15)</label>
-            <input type="number" id="product26" name="180000474" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product25">180000345 (Palm 13.05 KG)</label>
-            <input type="number" id="product27" name="180000345" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product26">180000439 (Sri Krupa 1ltr x 12 pet offer)</label>
-            <input type="number" id="product28" name="180000439" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product27">180000440 (Sri Krupa 500 ml x 24 pet)</label>
-            <input type="number" id="product29" name="180000440" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product28">180000437 (Rice Bran 1 x 16 pouch)</label>
-            <input type="number" id="product30" name="180000437" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product29">180000315 (Mustard 1 x 16 pouch)</label>
-            <input type="number" id="product31" name="180000315" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-         <label for="product30">180000424 (Be Rite 1 x 10 pouch)</label>
-            <input type="number" id="product32" name="180000424" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>   
-            <label for="product31">180000425 (Be Rite 1/2 x 20 pouch)</label>
-            <input type="number" id="product33" name="180000425" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>   
-            <label for="product32">180000426 (Be Rite 750ml X 12 pouch)</label>
-            <input type="number" id="product32" name="180000426" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li> 
-          <label for="product33">180000428 (Be Rite 5 x 4 Ltr)</label>
-            <input type="number" id="product33" name="180000428" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>   
-          <label for="product34">180000427 (Be Rite 2 x 6 Ltr)</label>
-            <input type="number" id="product34" name="180000427" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product35">180000429 (Be Rite 15 Ltr Tin)</label>
-            <input type="number" id="product35" name="180000429" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>
-          <label for="product36">180000430 (Be Rite 15 Kg Tin)</label>
-            <input type="number" id="product36" name="180000430" min="0" placeholder="Enter Qnty in Cases" style="width: 30%; padding-right: 10px;" />
-          </li>
-          <li>     
-        </ul>
-      </div>
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Submit</button>
-        </div>
-      </div>
-    </form>
-    <div id="message" style="
-    display: none;
-    margin: 20px;
-    font-weight: bold;
-    color: green;
-    padding: 8px;
-    background-color: beige;
-    border-radius: 4px;
-    border-color: aquamarine;
-  "></div>
-  </div>
+    <div class="buttons-container">
+      <button type="submit" id="submitBtn" disabled>Submit</button>
+      <button type="reset" id="resetBtn">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" role="alert" aria-live="polite"></div>
+
   <script>
-    function updateName() {
-      // Get the number entered by the user
-      var number = document.getElementById("numberInput").value;
+    (function () {
+      const sapCodeInput = document.getElementById('sapCodeInput');
+      const customerNameInput = document.getElementById('customerName');
+      const cityNameInput = document.getElementById('cityName');
+      const submitBtn = document.getElementById('submitBtn');
+      const form = document.getElementById('bookingForm');
+      const messageDiv = document.getElementById('message');
 
-      // In a real-world scenario, you would fetch data from your spreadsheet based on this number
-      // For demonstration purposes, I'm using a hardcoded mapping represented as an object
-      var nameMapping = {
+      // Predefined SAP Code Data
+      const sapData = {
         "364494": {name: "AVENUE SUPERMARTS LIMITED", city: "HUZURNAGAR"},
 "364486": {name: "MOONSTONE VENTURES LLP", city: "BHUBANESWAR"},
 "364487": {name: "METRO CASH AND CARRY INDIA LIMITED", city: "BHADRAK RURAL"},
@@ -926,71 +1107,162 @@
 "362864": {name: "Metro Cash & Carry Pvt.Ltd.,", city: "BENGALURU"},
 "362865": {name: "Metro Cash & Carry Pvt.Ltd.,", city: "BENGALURU"},
 "362866": {name: "Metro Cash & Carry Pvt.Ltd.,", city: "HYDERABAD"},
-
-        // Add more mappings as needed
+"364140": {name: "ITC LIMITED - Foods Division", city: "KHORDHA"},
+"364313": {name: "METRO CASH AND CARRY INDIA LIMITED", city: "GULBARGA"},
+"364502": {name: "AVENUE SUPERMARTS LIMITED", city: "VISAKHAPATNAM(PART)"},
+"364527": {name: "CLOUDKART VENTURES PRIVATE LIMITED", city: "VISAKHAPATNAM"},
+"364528": {name: "AVENUE SUPERMARTS LIMITED", city: "MARGAO"},
+"364537": {name: "AVENUE SUPERMARTS LIMITED", city: "JAGTIAL"},
+"364546": {name: "AVENUE SUPERMARTS LIMITED", city: "TADEPALLIGUDEM"},
+"364560": {name: "AVENUE SUPERMARTS LIMITED", city: "HOSPETE"},
+"364564": {name: "METRO CASH AND CARRY INDIA LIMITED", city: "SAUNDATTI-YELLAMMA"},
+"364570": {name: "KPN FARM FRESH PRIVATE LIMITED", city: "POONAMALLEE"},
+"364583": {name: "AVENUE SUPERMARTS LIMITED", city: "HUKERI"},
+"364598": {name: "JAIN TRADERS", city: "SECUNDERABAD"},
+"364600": {name: "AVENUE SUPERMARTS LTD", city: "HATKANANGLE"},
+"364613": {name: "GAYATHRI ENTERPRISES", city: "SERILINGAMPALLY"},
+"364614": {name: "ASVAH RETAIL PRIVATE LIMITED", city: "NOIDA"},
+"364625": {name: "AVENUE SUPERMARTS LIMITED", city: "MANDYA"},
+"364626": {name: "JUPITER KART PRIVATE LIMITED", city: "PONNERI"},
+"364629": {name: "METRO CASH AND CARRY INDIA LIMITED", city: "HYDERABAD"},
+"364633": {name: "ASVAH RETAIL PRIVATE LIMITED", city: "HAPUR"},
+"364664": {name: "RATNADEEP RETAIL PRIVATE LIMITED", city: "BIDAR"},
+"364680": {name: "KIRANAKART", city: "JHAJJAR"},
+"364681": {name: "KIRANAKART", city: "BALLABGARH"},
+"364691": {name: "KIRANAKART", city: "HAORA"},
+"364709": {name: "MOONSTONE VENTURES LLP", city: "HAPUR"},
+"364710": {name: "MOONSTONE VENTURES LLP", city: "GURGAON"},
+"364714": {name: "MOONSTONE VENTURES LLP", city: "FARRUKHNAGAR"},
+"364715": {name: "MOONSTONE VENTURES LLP", city: "JHAJJAR"},
+"364716": {name: "MOONSTONE VENTURES LLP", city: "SONIPAT"},
+"364717": {name: "MOONSTONE VENTURES LLP", city: "GHAZIABAD"},
+"364729": {name: "THE AKSHAYAPATRA FOUNDATION", city: "ONGOLE"}
+        // Add more SAP code mappings here
       };
 
-      // Update the name, city, and district fields based on the number entered
-      var mappedData = nameMapping[number];
-      if (mappedData) {
-        document.getElementById("nameOutput").value = mappedData.name;
-        document.getElementById("cityOutput").value = mappedData.city;
-        // Update district if necessary
-        // document.getElementById("districtOutput").value = mappedData.district;
-      } else {
-        document.getElementById("nameOutput").value = "";
-        document.getElementById("cityOutput").value = "";
-        // document.getElementById("districtOutput").value = "";
-      }
-    }
-
-    document.getElementById("form").addEventListener("submit", function(e) {
-      e.preventDefault(); // Prevent the default form submission
-      document.getElementById("message").textContent = "Submitting..";
-      document.getElementById("message").style.display = "block";
-      document.getElementById("submit-button").disabled = true;
-      // Collect the form data
-      var formData = new FormData(this);
-      var keyValuePairs = [];
-      for (var pair of formData.entries()) {
-        keyValuePairs.push(pair[0] + "=" + pair[1]);
-      }
-      var formDataString = keyValuePairs.join("&");
-      // Send a POST request to your Google Apps Script
-      fetch("https://script.google.com/macros/s/AKfycbxF4KZd7ILHLE07IFD--k8sRPVndUcQhY_b3g4igt5v3TZPEA9D34De8ot-7NL9gpM-BA/exec", {
-        redirect: "follow",
-        method: "POST",
-        body: formDataString,
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-      }).then(function(response) {
-        // Check if the request was successful
-        if (response) {
-          return response; // Assuming your script returns JSON response
-        } else {
-          throw new Error("Failed to submit the form.");
+      // Validate SAP code and fill name/city
+      function validateSAP() {
+        const val = sapCodeInput.value.trim();
+        if (!/^\d+$/.test(val)) {
+          customerNameInput.value = '';
+          cityNameInput.value = '';
+          submitBtn.disabled = true;
+          return;
         }
-      }).then(function(data) {
-        // Display a success message
-        document.getElementById("message").textContent = "Data submitted successfully!";
-        document.getElementById("message").style.display = "block";
-        document.getElementById("message").style.backgroundColor = "green";
-        document.getElementById("message").style.color = "beige";
-        document.getElementById("submit-button").disabled = false;
-        document.getElementById("form").reset();
-        setTimeout(function() {
-          document.getElementById("message").textContent = "";
-          document.getElementById("message").style.display = "none";
-        }, 2600);
-      }).catch(function(error) {
-        // Handle errors, you can display an error message here
-        console.error(error);
-        document.getElementById("message").textContent = "An error occurred while submitting the form.";
-        document.getElementById("message").style.display = "block";
+
+        if (val in sapData) {
+          customerNameInput.value = sapData[val].name;
+          cityNameInput.value = sapData[val].city;
+          checkFormValidity();
+        } else {
+          customerNameInput.value = '';
+          cityNameInput.value = '';
+          submitBtn.disabled = true;
+        }
+      }
+
+      function checkFormValidity() {
+        // Enable submit only if SAP is valid and PO Number and Booking Type and Payment Terms are filled
+        const poNumber = form.PONumber.value.trim();
+        const bookingType = form.BookingType.value;
+        const paymentTerms = form.PaymentTerms.value;
+
+        if (
+          customerNameInput.value &&
+          cityNameInput.value &&
+          poNumber !== '' &&
+          bookingType !== '' &&
+          paymentTerms !== ''
+        ) {
+          submitBtn.disabled = false;
+        } else {
+          submitBtn.disabled = true;
+        }
+      }
+
+      // Restrict SAP Code input to digits only (and allow backspace etc)
+      sapCodeInput.addEventListener('input', () => {
+        sapCodeInput.value = sapCodeInput.value.replace(/[^\d]/g, '');
+        validateSAP();
       });
-    });
+
+      // Validate fields on change to enable/disable submit
+      form.PONumber.addEventListener('input', checkFormValidity);
+      form.BookingType.addEventListener('change', checkFormValidity);
+      form.PaymentTerms.addEventListener('change', checkFormValidity);
+
+      // Clear fields on reset
+      form.addEventListener('reset', () => {
+        customerNameInput.value = '';
+        cityNameInput.value = '';
+        submitBtn.disabled = true;
+        messageDiv.style.display = 'none';
+        messageDiv.textContent = '';
+      });
+
+      // Submit handler - updated to use Google Apps Script endpoint
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Basic validation before submit (just in case)
+        if (submitBtn.disabled) return;
+
+        // Show submitting message
+        messageDiv.textContent = "Submitting...";
+        messageDiv.style.display = "block";
+        messageDiv.style.color = "#8b4513";
+        messageDiv.style.backgroundColor = "#fff9e6";
+        submitBtn.disabled = true;
+
+        // Collect the form data
+        const formData = new FormData(form);
+        const keyValuePairs = [];
+        for (const pair of formData.entries()) {
+          keyValuePairs.push(pair[0] + "=" + pair[1]);
+        }
+        const formDataString = keyValuePairs.join("&");
+
+        // Send a POST request to Google Apps Script
+        fetch("https://script.google.com/macros/s/AKfycbxF4KZd7ILHLE07IFD--k8sRPVndUcQhY_b3g4igt5v3TZPEA9D34De8ot-7NL9gpM-BA/exec", {
+          redirect: "follow",
+          method: "POST",
+          body: formDataString,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        })
+        .then(response => {
+          if (response) {
+            return response.text(); // Adjust based on your script's response
+          } else {
+            throw new Error("Failed to submit the form.");
+          }
+        })
+        .then(data => {
+          // Display success message
+          messageDiv.textContent = "Data submitted successfully!";
+          messageDiv.style.display = "block";
+          messageDiv.style.backgroundColor = "#e8f5e9";
+          messageDiv.style.color = "green";
+          
+          // Reset form after successful submission
+          form.reset();
+          
+          // Re-enable submit button after a delay
+          setTimeout(() => {
+            messageDiv.style.display = "none";
+          }, 3000);
+        })
+        .catch(error => {
+          console.error(error);
+          messageDiv.textContent = "An error occurred while submitting the form.";
+          messageDiv.style.display = "block";
+          messageDiv.style.backgroundColor = "#ffebee";
+          messageDiv.style.color = "#c62828";
+          submitBtn.disabled = false;
+        });
+      });
+    })();
   </script>
 </body>
-
 </html>

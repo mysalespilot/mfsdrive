@@ -1,44 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dispatch Plan Entry</title>
 <style>
-body { font-family: Arial, sans-serif; background:#f7f7f7; padding:10px; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  padding: 10px;
+  margin: 0;
+}
 
 /* Date Header */
 .date-header {
-  text-align:center;
-  background:#00688B;
-  color:white;
-  padding:15px 0;
-  font-size:26px;
-  font-weight:bold;
-  margin:0 0 15px 0;
-  letter-spacing:1px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+  text-align: center;
+  background: #00688B;
+  color: white;
+  padding: 15px 0;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* Displayed Date Text */
+/* Date Text */
 #displayDate {
-  background:transparent;
-  border:none;
-  color:white;
-  font-size:24px;
-  font-weight:bold;
-  text-align:center;
-  width:auto;
-  outline:none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  outline: none;
 }
-table { width:480px; border-collapse:collapse; margin:15px; float:left; font-size:14px; background:white; }
-th, td { border:1px solid #000; text-align:center; padding:6px; }
-th { background:#B20000; color:white; }
-.section-title { background:#00688B; color:white; font-size:16px; font-weight:bold; padding:5px; text-align:center; }
-input { width:60px; text-align:center; border:1px solid #999; padding:3px; }
-input[readonly] { background:#e6f7ff; font-weight:bold; }
-.total-row td { background:#1E90FF; color:white; font-weight:bold; }
-.clearfix { clear:both; }
-button { margin:10px; padding:8px 12px; background:#00688B; color:white; border:0; cursor:pointer; }
-button:hover { background:#004766; }
+
+/* Tables */
+table {
+  width: 100%;
+  max-width: 480px;
+  border-collapse: collapse;
+  margin: 10px auto;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+th, td {
+  border: 1px solid #000;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
+}
+
+th {
+  background: #B20000;
+  color: white;
+}
+
+.section-title {
+  background: #00688B;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+
+input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #999;
+  padding: 3px;
+}
+
+input[readonly] {
+  background: #e6f7ff;
+  font-weight: bold;
+}
+
+.total-row td {
+  background: #1E90FF;
+  color: white;
+  font-weight: bold;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/* Buttons */
+button {
+  margin: 10px;
+  padding: 10px 16px;
+  background: #00688B;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #004766;
+}
+
+/* Responsive layout */
+#tables {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 90%;
+    margin: 10px auto;
+    font-size: 13px;
+  }
+  input {
+    width: 50px;
+  }
+  .date-header {
+    font-size: 22px;
+  }
+  #displayDate {
+    font-size: 20px;
+  }
+}
 </style>
 
 <script>
@@ -48,79 +137,84 @@ const states = ["AP","KA","OR","TS"];
 function calc(section, prod) {
     let d = Number(document.getElementById(section+prod+"D").value) || 0;
     let p = Number(document.getElementById(section+prod+"P").value) || 0;
-    document.getElementById(section+prod+"T").value = d+p;
+    document.getElementById(section+prod+"T").value = d + p;
 
-    let depot=0, plant=0;
-    products.forEach(pr=>{
-        depot += Number(document.getElementById(section+pr+"D").value)||0;
-        plant += Number(document.getElementById(section+pr+"P").value)||0;
+    let depot = 0, plant = 0;
+    products.forEach(pr => {
+        depot += Number(document.getElementById(section+pr+"D").value) || 0;
+        plant += Number(document.getElementById(section+pr+"P").value) || 0;
     });
 
     document.getElementById(section+"DepTotal").value = depot;
     document.getElementById(section+"PlantTotal").value = plant;
-    document.getElementById(section+"Total").value = depot+plant;
+    document.getElementById(section+"Total").value = depot + plant;
     calcGrand();
 }
 
 function calcGrand() {
-    products.forEach(pr=>{
-        let sumD=0, sumP=0;
-        states.forEach(s=>{
-            sumD += Number(document.getElementById(s+pr+"D").value)||0;
-            sumP += Number(document.getElementById(s+pr+"P").value)||0;
+    products.forEach(pr => {
+        let sumD = 0, sumP = 0;
+        states.forEach(s => {
+            sumD += Number(document.getElementById(s+pr+"D").value) || 0;
+            sumP += Number(document.getElementById(s+pr+"P").value) || 0;
         });
         document.getElementById("G"+pr+"D").value = sumD;
         document.getElementById("G"+pr+"P").value = sumP;
-        document.getElementById("G"+pr+"T").value = sumD+sumP;
+        document.getElementById("G"+pr+"T").value = sumD + sumP;
     });
 
-    let gd=0, gp=0;
-    states.forEach(s=>{
-        gd += Number(document.getElementById(s+"DepTotal").value)||0;
-        gp += Number(document.getElementById(s+"PlantTotal").value)||0;
+    let gd = 0, gp = 0;
+    states.forEach(s => {
+        gd += Number(document.getElementById(s+"DepTotal").value) || 0;
+        gp += Number(document.getElementById(s+"PlantTotal").value) || 0;
     });
 
     document.getElementById("GDepot").value = gd;
     document.getElementById("GPlant").value = gp;
-    document.getElementById("GTotal").value = gd+gp;
+    document.getElementById("GTotal").value = gd + gp;
 }
 
-function downloadJPG(){
+function downloadJPG() {
     const btns = document.querySelectorAll('button');
-    btns.forEach(b=>b.style.display='none');
-    html2canvas(document.body).then(canvas=>{
-        const link=document.createElement('a');
-        link.download='dispatch_plan.jpg';
-        link.href=canvas.toDataURL('image/jpeg');
+    btns.forEach(b => b.style.display = 'none');
+    html2canvas(document.body).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'dispatch_plan.jpg';
+        link.href = canvas.toDataURL('image/jpeg');
         link.click();
-        btns.forEach(b=>b.style.display='inline-block');
+        btns.forEach(b => b.style.display = 'inline-block');
     });
 }
 
-function submitSheet(){
-    const data={date:document.getElementById('hiddenDate').value, entries:[]};
-    states.forEach(s=>{
-        products.forEach(p=>{
+function submitSheet() {
+    const now = new Date();
+    const timestamp = now.toISOString().slice(0,10); // Only date
+    const data = { date: timestamp, entries: [] };
+
+    states.forEach(s => {
+        products.forEach(p => {
             data.entries.push({
-                state:s,prod:p,
-                depot:document.getElementById(s+p+"D").value,
-                plant:document.getElementById(s+p+"P").value
+                state: s,
+                prod: p,
+                depot: document.getElementById(s+p+"D").value,
+                plant: document.getElementById(s+p+"P").value
             });
         });
     });
 
-    fetch('https://script.google.com/macros/s/AKfycbxzAJJuoQP_oG99RtsiHM9XD-VoiJw9RiloBRZX_NNJFQinC4L4ora6vJ_C9x26o2y7NQ/exec',{
-        method:'POST',mode:'no-cors',body:JSON.stringify(data)
+    fetch('https://script.google.com/macros/s/AKfycbxzAJJuoQP_oG99RtsiHM9XD-VoiJw9RiloBRZX_NNJFQinC4L4ora6vJ_C9x26o2y7NQ/exec', {
+        method: 'POST', mode: 'no-cors', body: JSON.stringify(data)
     });
+
     alert('Submitted to Google Sheet ✅');
 }
 
-function makeTable(code, title){
+function makeTable(code, title) {
     let html = `<table>
         <tr><td class='section-title' colspan='4'>${title} Dispatch Plan</td></tr>
         <tr><th>Products</th><th>Depot</th><th>Plant</th><th>Total</th></tr>`;
 
-    products.forEach(p=>{
+    products.forEach(p => {
         html += `<tr>
             <td><b>${p}</b></td>
             <td><input type='number' id='${code+p}D' oninput="calc('${code}','${p}')"></td>
@@ -139,44 +233,34 @@ function makeTable(code, title){
     document.getElementById("tables").innerHTML += html;
 }
 
-window.onload = ()=>{
-    ["AP","KA","OR","TS"].forEach(s=>makeTable(s,s));
+window.onload = () => {
+    states.forEach(s => makeTable(s, s));
 
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    const formattedDate = `${dd}-${mm}-${yyyy}`;
-
-    // Display date in white text
-    document.getElementById("displayDate").textContent = formattedDate;
-
-    // Store in hidden field for Google Sheet submission
-    document.getElementById("hiddenDate").value = formattedDate;
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const yyyy = now.getFullYear();
+    document.getElementById("displayDate").textContent = `${dd}-${mm}-${yyyy}`;
 };
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
-
-<!-- Date Header with Visible White Date -->
 <div class="date-header">
-    Date: <span id="displayDate"></span>
-    <input type="hidden" id="hiddenDate">
+  Date: <span id="displayDate"></span>
 </div>
 
 <div id="tables"></div>
 <div class="clearfix"></div>
 
 <!-- Grand Total -->
-<table style="width:480px;">
+<table>
 <tr><td class="section-title" colspan="4">Grand Total</td></tr>
 <tr><th>Products</th><th>Depot</th><th>Plant</th><th>Total</th></tr>
 <script>
-products.forEach(p=>{
-document.write(`<tr><td><b>${p}</b></td><td><input id='G${p}D' readonly></td><td><input id='G${p}P' readonly></td><td><input id='G${p}T' readonly></td></tr>`);
+products.forEach(p => {
+  document.write(`<tr><td><b>${p}</b></td><td><input id='G${p}D' readonly></td><td><input id='G${p}P' readonly></td><td><input id='G${p}T' readonly></td></tr>`);
 });
 </script>
 <tr class="total-row">
@@ -187,12 +271,9 @@ document.write(`<tr><td><b>${p}</b></td><td><input id='G${p}D' readonly></td><td
 </tr>
 </table>
 
-<div class="clearfix"></div>
-
 <center>
 <button onclick="downloadJPG()">Download JPG</button>
 <button onclick="submitSheet()">Submit to Google Sheet</button>
 </center>
-
 </body>
 </html>

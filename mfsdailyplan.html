@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>Dispatch Plan Entry</title>
 <style>
 body {
@@ -20,30 +20,30 @@ body {
   padding: 15px 0;
   font-size: 26px;
   font-weight: bold;
-  margin: 0 0 15px 0;
+  margin-bottom: 15px;
   letter-spacing: 1px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* Date Text */
 #displayDate {
-  background: transparent;
-  border: none;
   color: white;
   font-size: 24px;
   font-weight: bold;
-  text-align: center;
-  outline: none;
 }
 
 /* Tables */
+.table-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 12px;
+  justify-content: center;
+}
+
 table {
   width: 100%;
-  max-width: 480px;
   border-collapse: collapse;
-  margin: 10px auto;
   background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 th, td {
@@ -85,10 +85,6 @@ input[readonly] {
   font-weight: bold;
 }
 
-.clearfix {
-  clear: both;
-}
-
 /* Buttons */
 button {
   margin: 10px;
@@ -105,17 +101,12 @@ button:hover {
   background: #004766;
 }
 
-/* Responsive layout */
-#tables {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
+/* Mobile Scaling */
 @media (max-width: 768px) {
+  body {
+    zoom: 0.85; /* scale layout slightly smaller */
+  }
   table {
-    width: 90%;
-    margin: 10px auto;
     font-size: 13px;
   }
   input {
@@ -135,127 +126,126 @@ const products = ["SF","Palm","RB","GN","MSD","FKL","SK"];
 const states = ["AP","KA","OR","TS"];
 
 function calc(section, prod) {
-    let d = Number(document.getElementById(section+prod+"D").value) || 0;
-    let p = Number(document.getElementById(section+prod+"P").value) || 0;
-    document.getElementById(section+prod+"T").value = d + p;
+  let d = Number(document.getElementById(section+prod+"D").value) || 0;
+  let p = Number(document.getElementById(section+prod+"P").value) || 0;
+  document.getElementById(section+prod+"T").value = d + p;
 
-    let depot = 0, plant = 0;
-    products.forEach(pr => {
-        depot += Number(document.getElementById(section+pr+"D").value) || 0;
-        plant += Number(document.getElementById(section+pr+"P").value) || 0;
-    });
+  let depot = 0, plant = 0;
+  products.forEach(pr => {
+    depot += Number(document.getElementById(section+pr+"D").value) || 0;
+    plant += Number(document.getElementById(section+pr+"P").value) || 0;
+  });
 
-    document.getElementById(section+"DepTotal").value = depot;
-    document.getElementById(section+"PlantTotal").value = plant;
-    document.getElementById(section+"Total").value = depot + plant;
-    calcGrand();
+  document.getElementById(section+"DepTotal").value = depot;
+  document.getElementById(section+"PlantTotal").value = plant;
+  document.getElementById(section+"Total").value = depot + plant;
+  calcGrand();
 }
 
 function calcGrand() {
-    products.forEach(pr => {
-        let sumD = 0, sumP = 0;
-        states.forEach(s => {
-            sumD += Number(document.getElementById(s+pr+"D").value) || 0;
-            sumP += Number(document.getElementById(s+pr+"P").value) || 0;
-        });
-        document.getElementById("G"+pr+"D").value = sumD;
-        document.getElementById("G"+pr+"P").value = sumP;
-        document.getElementById("G"+pr+"T").value = sumD + sumP;
-    });
-
-    let gd = 0, gp = 0;
+  products.forEach(pr => {
+    let sumD = 0, sumP = 0;
     states.forEach(s => {
-        gd += Number(document.getElementById(s+"DepTotal").value) || 0;
-        gp += Number(document.getElementById(s+"PlantTotal").value) || 0;
+      sumD += Number(document.getElementById(s+pr+"D").value) || 0;
+      sumP += Number(document.getElementById(s+pr+"P").value) || 0;
     });
+    document.getElementById("G"+pr+"D").value = sumD;
+    document.getElementById("G"+pr+"P").value = sumP;
+    document.getElementById("G"+pr+"T").value = sumD + sumP;
+  });
 
-    document.getElementById("GDepot").value = gd;
-    document.getElementById("GPlant").value = gp;
-    document.getElementById("GTotal").value = gd + gp;
+  let gd = 0, gp = 0;
+  states.forEach(s => {
+    gd += Number(document.getElementById(s+"DepTotal").value) || 0;
+    gp += Number(document.getElementById(s+"PlantTotal").value) || 0;
+  });
+
+  document.getElementById("GDepot").value = gd;
+  document.getElementById("GPlant").value = gp;
+  document.getElementById("GTotal").value = gd + gp;
 }
 
 function downloadJPG() {
-    const btns = document.querySelectorAll('button');
-    btns.forEach(b => b.style.display = 'none');
-    html2canvas(document.body).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'dispatch_plan.jpg';
-        link.href = canvas.toDataURL('image/jpeg');
-        link.click();
-        btns.forEach(b => b.style.display = 'inline-block');
-    });
+  const btns = document.querySelectorAll('button');
+  btns.forEach(b => b.style.display = 'none');
+  html2canvas(document.body).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'dispatch_plan.jpg';
+    link.href = canvas.toDataURL('image/jpeg');
+    link.click();
+    btns.forEach(b => b.style.display = 'inline-block');
+  });
 }
 
 function submitSheet() {
-    const now = new Date();
-    const timestamp = now.toISOString().slice(0,10); // Only date
-    const data = { date: timestamp, entries: [] };
+  const now = new Date();
+  const timestamp = now.toISOString().slice(0,10);
+  const data = { date: timestamp, entries: [] };
 
-    states.forEach(s => {
-        products.forEach(p => {
-            data.entries.push({
-                state: s,
-                prod: p,
-                depot: document.getElementById(s+p+"D").value,
-                plant: document.getElementById(s+p+"P").value
-            });
-        });
+  states.forEach(s => {
+    products.forEach(p => {
+      data.entries.push({
+        state: s,
+        prod: p,
+        depot: document.getElementById(s+p+"D").value,
+        plant: document.getElementById(s+p+"P").value
+      });
     });
+  });
 
-    fetch('https://script.google.com/macros/s/AKfycbxzAJJuoQP_oG99RtsiHM9XD-VoiJw9RiloBRZX_NNJFQinC4L4ora6vJ_C9x26o2y7NQ/exec', {
-        method: 'POST', mode: 'no-cors', body: JSON.stringify(data)
-    });
+  fetch('https://script.google.com/macros/s/AKfycbxzAJJuoQP_oG99RtsiHM9XD-VoiJw9RiloBRZX_NNJFQinC4L4ora6vJ_C9x26o2y7NQ/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(data)
+  });
 
-    alert('Submitted to Google Sheet ✅');
+  alert('Submitted to Google Sheet ✅');
 }
 
 function makeTable(code, title) {
-    let html = `<table>
-        <tr><td class='section-title' colspan='4'>${title} Dispatch Plan</td></tr>
-        <tr><th>Products</th><th>Depot</th><th>Plant</th><th>Total</th></tr>`;
+  let html = `<table>
+    <tr><td class='section-title' colspan='4'>${title} Dispatch Plan</td></tr>
+    <tr><th>Products</th><th>Depot</th><th>Plant</th><th>Total</th></tr>`;
+  
+  products.forEach(p => {
+    html += `<tr>
+      <td><b>${p}</b></td>
+      <td><input type='number' id='${code+p}D' oninput="calc('${code}','${p}')"></td>
+      <td><input type='number' id='${code+p}P' oninput="calc('${code}','${p}')"></td>
+      <td><input readonly id='${code+p}T'></td>
+    </tr>`;
+  });
 
-    products.forEach(p => {
-        html += `<tr>
-            <td><b>${p}</b></td>
-            <td><input type='number' id='${code+p}D' oninput="calc('${code}','${p}')"></td>
-            <td><input type='number' id='${code+p}P' oninput="calc('${code}','${p}')"></td>
-            <td><input readonly id='${code+p}T'></td>
-        </tr>`;
-    });
-
-    html += `<tr class='total-row'>
-        <td>Total</td>
-        <td><input id='${code}DepTotal' readonly></td>
-        <td><input id='${code}PlantTotal' readonly></td>
-        <td><input id='${code}Total' readonly></td>
-    </tr></table>`;
-
-    document.getElementById("tables").innerHTML += html;
+  html += `<tr class='total-row'>
+    <td>Total</td>
+    <td><input id='${code}DepTotal' readonly></td>
+    <td><input id='${code}PlantTotal' readonly></td>
+    <td><input id='${code}Total' readonly></td>
+  </tr></table>`;
+  
+  document.getElementById("tables").innerHTML += html;
 }
 
 window.onload = () => {
-    states.forEach(s => makeTable(s, s));
+  states.forEach(s => makeTable(s, s));
 
-    const now = new Date();
-    const dd = String(now.getDate()).padStart(2, '0');
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const yyyy = now.getFullYear();
-    document.getElementById("displayDate").textContent = `${dd}-${mm}-${yyyy}`;
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yyyy = now.getFullYear();
+  document.getElementById("displayDate").textContent = `${dd}-${mm}-${yyyy}`;
 };
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-
 <body>
-<div class="date-header">
-  Date: <span id="displayDate"></span>
-</div>
+<div class="date-header">Date: <span id="displayDate"></span></div>
 
-<div id="tables"></div>
-<div class="clearfix"></div>
+<div id="tables" class="table-container"></div>
 
 <!-- Grand Total -->
-<table>
+<table style="max-width:480px; margin:20px auto;">
 <tr><td class="section-title" colspan="4">Grand Total</td></tr>
 <tr><th>Products</th><th>Depot</th><th>Plant</th><th>Total</th></tr>
 <script>
@@ -264,16 +254,16 @@ products.forEach(p => {
 });
 </script>
 <tr class="total-row">
-<td><b>Grand</b></td>
-<td><input id="GDepot" readonly></td>
-<td><input id="GPlant" readonly></td>
-<td><input id="GTotal" readonly></td>
+  <td><b>Grand</b></td>
+  <td><input id="GDepot" readonly></td>
+  <td><input id="GPlant" readonly></td>
+  <td><input id="GTotal" readonly></td>
 </tr>
 </table>
 
 <center>
-<button onclick="downloadJPG()">Download JPG</button>
-<button onclick="submitSheet()">Submit to Google Sheet</button>
+  <button onclick="downloadJPG()">Download JPG</button>
+  <button onclick="submitSheet()">Submit to Google Sheet</button>
 </center>
 </body>
 </html>

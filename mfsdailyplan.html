@@ -41,7 +41,7 @@ table {
   width: 100%;
   max-width: 480px;
   border-collapse: collapse;
-  margin: 10px auto;
+  margin: 20px auto; /* Increased gap between table sections */
   background: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -188,7 +188,7 @@ function downloadJPG() {
 
 function submitSheet() {
     const now = new Date();
-    const timestamp = now.toISOString().slice(0,10); // Only date
+    const timestamp = now.toISOString().slice(0,10);
     const data = { date: timestamp, entries: [] };
 
     states.forEach(s => {
@@ -230,7 +230,7 @@ function makeTable(code, title) {
         <td><input id='${code}Total' readonly></td>
     </tr></table>`;
 
-    document.getElementById("tables").innerHTML += html;
+    document.getElementById("tables").innerHTML += html + "<br>"; /* Add gap */
 }
 
 window.onload = () => {

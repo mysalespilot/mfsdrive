@@ -1,252 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Booking Form</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #fff5e6, #ffe0b2);
-      padding: 20px;
-      margin: 0;
-      color: #5d4037;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Form</title>
 
-    h1 {
-      text-align: center;
-      color: #8b4513;
-      margin-bottom: 20px;
-      font-size: 2.2rem;
-      font-weight: 700;
-      user-select: none;
-    }
+<style>
 
-    form {
-      background: #fffdf7;
-      border: 1px solid #f4e2c2;
-      border-radius: 12px;
-      padding: 25px 30px;
-      max-width: 600px;
-      width: 100%;
-      box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
-      transition: box-shadow 0.3s ease;
-    }
+body{
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+background:linear-gradient(to bottom right,#fff5e6,#ffe0b2);
+padding:20px;
+margin:0;
+color:#5d4037;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
 
-    form:hover {
-      box-shadow: 0 6px 14px rgba(139, 69, 19, 0.3);
-    }
+h1{
+color:#8b4513;
+margin-bottom:20px;
+}
 
-    label {
-      display: block;
-      margin: 12px 0 6px;
-      font-weight: 600;
-      font-size: 1rem;
-    }
+form{
+background:#fffdf7;
+border:1px solid #f4e2c2;
+border-radius:12px;
+padding:25px 30px;
+max-width:600px;
+width:100%;
+box-shadow:0 4px 8px rgba(139,69,19,0.2);
+}
 
-    input[type="text"],
-    input[type="number"],
-    select {
-      width: 100%;
-      max-width: 100%;
-      padding: 10px 12px;
-      font-size: 1rem;
-      border: 1.8px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      transition: border-color 0.25s ease;
-    }
+label{
+display:block;
+margin:12px 0 6px;
+font-weight:600;
+}
 
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus {
-      outline: none;
-      border-color: #8b4513;
-      background-color: #fff8e1;
-    }
+input,select{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
 
-    .category-header {
-      background-color: #ffd699;
-      color: #4e342e;
-      padding: 10px 16px;
-      margin: 24px 0 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      user-select: none;
-    }
+.category-header{
+background:#ffd699;
+padding:10px;
+margin-top:20px;
+font-weight:bold;
+border-radius:6px;
+}
 
-    .sku-container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid #f4e2c2;
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-bottom: 10px;
-    }
+.sku-container{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+}
 
-    .sku-info {
-      flex: 2 1 60%;
-      font-size: 0.95rem;
-      user-select: text;
-    }
+button{
+padding:12px;
+font-size:16px;
+background:#8b4513;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:20px;
+width:100%;
+}
 
-    .sku-qty {
-      flex: 1 1 35%;
-      min-width: 70px;
-    }
+button:disabled{
+background:#cfa67a;
+cursor:not-allowed;
+}
 
-    .sku-qty input {
-      width: 100%;
-      padding: 8px;
-      font-size: 0.95rem;
-      border-radius: 6px;
-      border: 1.5px solid #ccc;
-    }
+#message{
+margin-top:20px;
+font-weight:bold;
+display:none;
+}
 
-    .sku-qty input:focus {
-      border-color: #8b4513;
-      background-color: #fff8e1;
-    }
-
-    #message {
-      display: none;
-      margin: 20px auto 0;
-      font-weight: 700;
-      color: green;
-      padding: 10px 15px;
-      background-color: #fff9e6;
-      border-radius: 6px;
-      border: 1px solid aquamarine;
-      max-width: 600px;
-      text-align: center;
-      user-select: none;
-    }
-
-    button {
-      padding: 12px 30px;
-      font-size: 1.1rem;
-      background-color: #8b4513;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      max-width: 600px;
-      width: 100%;
-      margin-top: 25px;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-
-    button:hover:not(:disabled) {
-      background-color: #a05d2a;
-    }
-
-    button:disabled {
-      background-color: #cfa67a;
-      cursor: not-allowed;
-    }
-
-    .buttons-container {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      max-width: 600px;
-      margin-top: 10px;
-    }
-
-    .buttons-container button {
-      width: auto;
-      flex: 1;
-    }
-
-    @media (max-width: 480px) {
-      form {
-        padding: 20px;
-      }
-
-      .sku-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .sku-info, .sku-qty {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
-  <h1>Booking Form</h1>
+<h1>Booking Form</h1>
 
-  <form id="bookingForm" novalidate>
-    <label for="sapCodeInput">Enter SAP Code:</label>
-    <input
-      type="text"
-      id="sapCodeInput"
-      name="SAP"
-      pattern="\d*"
-      inputmode="numeric"
-      placeholder="Enter numeric SAP Code"
-      aria-describedby="sapHelp"
-      autocomplete="off"
-      required
-    />
-    
-    <label for="customerName">Customer Name:</label>
-    <input type="text" id="customerName" name="Customer Name" readonly aria-readonly="true" placeholder="Customer Name will appear here" />
+<form id="bookingForm">
 
-    <label for="cityName">City:</label>
-    <input type="text" id="cityName" name="City" readonly aria-readonly="true" placeholder="City will appear here" />
+<label>Enter SAP Code</label>
+<input type="text" id="sapCodeInput" name="SAP" placeholder="Enter SAP Code">
 
-    <label for="poNumberInput">PO Number:</label>
-    <input
-      type="text"
-      id="poNumberInput"
-      name="PONumber"
-      placeholder="Enter PO Number"
-      required
-      aria-required="true"
-      autocomplete="off"
-    />
+<label>Customer Name</label>
+<input type="text" id="customerName" readonly>
 
-    <label for="bookingTypeSelect">Booking Type:</label>
-    <select id="bookingTypeSelect" name="BookingType" required aria-required="true">
-      <option value="" disabled selected>Select Booking Type</option>
-      <option value="Sale Order">Sale Order</option>
-      <option value="Contract">Contract</option>
-    </select>
+<label>City</label>
+<input type="text" id="cityName" readonly>
 
-    <label for="plantInput">Plant:</label>
-    <input
-      type="text"
-      id="plantInput"
-      name="Plant"
-      placeholder="Enter Plant"
-      autocomplete="off"
-    />
 
-    <label for="incotermsSelect">Incoterms:</label>
-    <select id="incotermsSelect" name="Incoterms" aria-required="false">
-      <option value="" disabled selected>Select Incoterms</option>
-      <option value="FOR">FOR</option>
-      <option value="EX">EX</option>
-    </select>
+<label>PO Number</label>
+<input type="text" id="poNumberInput" name="PONumber" required>
 
-    <label for="paymentTermsSelect">Payment Terms:</label>
-    <select id="paymentTermsSelect" name="PaymentTerms" required aria-required="true">
-      <option value="" disabled selected>Select Payment Terms</option>
-      <option value="Credit">Credit</option>
-      <option value="Cash">Cash</option>
-    </select>
+
+<label>PO Type</label>
+<select id="poTypeSelect" name="POType" required>
+<option value="">Select PO Type</option>
+<option>ARS</option>
+<option>Manual</option>
+</select>
+
+
+<label>PO Date</label>
+<input type="date" id="poDateInput" name="PODate" required>
+
+
+<label>Booking Type</label>
+<select id="bookingTypeSelect" name="BookingType" required>
+<option value="">Select Booking Type</option>
+<option>Sale Order</option>
+<option>Contract</option>
+</select>
+
+<label>Plant</label>
+<input type="text" name="Plant">
+
+<label>Incoterms</label>
+<select name="Incoterms">
+<option value="">Select</option>
+<option>FOR</option>
+<option>EX</option>
+</select>
+
+<label>Payment Terms</label>
+<select id="paymentTermsSelect" name="PaymentTerms" required>
+<option value="">Select Payment</option>
+<option>Credit</option>
+<option>Cash</option>
+</select>
+
 
     <!-- SF Category -->
     <div class="category-header" aria-label="SF Category">SF</div>
